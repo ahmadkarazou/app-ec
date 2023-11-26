@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'Profile.dart';
 import 'UI/home.dart';
 
+import 'UI/home.dart';
+
 void main() {
   runApp( MyApp());
 
