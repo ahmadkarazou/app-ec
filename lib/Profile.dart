@@ -60,7 +60,7 @@ class Profile extends StatelessWidget {
                       icon: Icon(
                         Icons.settings,
                         size: 40,
-                        color: Colors.teal[700],
+                        color: Color(0xff74918B),
                       ),
                     ),
                   ],
@@ -101,7 +101,7 @@ class Profile extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Row(
                   children: [
-                    Icon(entry.value['icon'], color: Colors.teal[700], size: 30),
+                    Icon(entry.value['icon'], color: Color(0xff74918B), size: 30),
                     SizedBox(width: 20),
                     Text(
                       entry.value['title'],
