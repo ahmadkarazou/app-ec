@@ -5,9 +5,9 @@ import 'LogIn.dart';
 class Create extends StatefulWidget {
   Create({super.key});
   List<AssetImage> images=[
-    AssetImage('asset/google-icon.svg'),
-    AssetImage('asset/facebook-2.svg'),
-    AssetImage('asset/twitter.svg'),
+    AssetImage('asset/images/google-icon.svg'),
+    AssetImage('asset/images/facebook-2.svg'),
+    AssetImage('asset/images/twitter.svg'),
   ];
 
   @override
@@ -85,7 +85,7 @@ class _CreateState extends State<Create> {
                   children: [
                     CircleAvatar(
                       child:  GestureDetector(child:Image.asset(
-                        'assets/Apple.jpeg',
+                        'assets/images/Apple.jpeg',
                       ),
                           onTap:(){
                             // Navigator.push(
@@ -97,7 +97,7 @@ class _CreateState extends State<Create> {
                     ),
                     CircleAvatar(
                       child:  GestureDetector(child:Image.asset(
-                        'assets/google.jpeg',
+                        'assets/images/google.jpeg',
                       ),
                           onTap:(){}
                       ),
@@ -105,7 +105,7 @@ class _CreateState extends State<Create> {
                     ),
                     CircleAvatar(
                       child:  GestureDetector(child:Image.asset(
-                        'assets/facebook.jpeg',
+                        'assets/images/facebook.jpeg',
                       ),
                           onTap:(){}
                       ),

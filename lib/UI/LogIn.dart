@@ -70,7 +70,7 @@ class LogIn extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       child:  GestureDetector(child:Image.asset(
-                        'assets/Apple.jpeg',
+                        'assets/images/Apple.jpeg',
                       ),
                           onTap:(){
                             // Navigator.push(
@@ -82,7 +82,7 @@ class LogIn extends StatelessWidget {
                     ),
                     CircleAvatar(
                       child:  GestureDetector(child:Image.asset(
-                        'assets/google.jpeg',
+                        'assets/images/google.jpeg',
                       ),
                           onTap:(){}
                       ),
@@ -90,7 +90,7 @@ class LogIn extends StatelessWidget {
                     ),
                     CircleAvatar(
                       child:  GestureDetector(child:Image.asset(
-                        'assets/facebook.jpeg',
+                        'assets/images/facebook.jpeg',
                       ),
                           onTap:(){}
                       ),
