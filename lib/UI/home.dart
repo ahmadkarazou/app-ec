@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'Cart.dart';
 import 'Profile.dart';
 
 class Home extends StatefulWidget {
@@ -14,7 +15,7 @@ class _HomeState extends State<Home> {
   TextEditingController Search = TextEditingController();
   List<Widget> pages = [
     HomePage(),
-    Text('Cart'),
+    Cart(),
     Profile(),
   ];
   int selectedindex = 0;
