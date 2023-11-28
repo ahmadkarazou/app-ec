@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../modal/button.dart';
+import '../button.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
@@ -11,10 +11,6 @@ class Profile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15),
         child: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor: const Color(0xffFFFBFE),
-          ),
           body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -50,14 +46,14 @@ class Profile extends StatelessWidget {
                       ],
                     ),
                     SizedBox(width: 30.0),
-                    IconButton(
-                      onPressed: () {
+                    InkWell(
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => const EditProfilePage()),
                         );
                       },
-                      icon: Icon(
+                      child: Icon(
                         Icons.settings,
                         size: 40,
                         color: Color(0xff74918B),
@@ -99,15 +95,34 @@ class Profile extends StatelessWidget {
               if (entry.key != 0) const Divider(height: 1, color: Colors.black12),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Row(
-                  children: [
-                    Icon(entry.value['icon'], color: Color(0xff74918B), size: 30),
-                    SizedBox(width: 20),
-                    Text(
-                      entry.value['title'],
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
-                    ),
-                  ],
+                child: InkWell(
+                  onTap: () {
+                    // Add your logic for each button press here
+                    switch (entry.value['title']) {
+                      case 'Payment Method':
+                      // Handle Payment Method button press
+                        break;
+                      case 'My Wishlist':
+                      // Handle My Wishlist button press
+                        break;
+                      case 'Rate This App':
+                      // Handle Rate This App button press
+                        break;
+                      case 'Log Out':
+                      // Handle Log Out button press
+                        break;
+                    }
+                  },
+                  child: Row(
+                    children: [
+                      Icon(entry.value['icon'], color: Color(0xff74918B), size: 30),
+                      SizedBox(width: 20),
+                      Text(
+                        entry.value['title'],
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 30),

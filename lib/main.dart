@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/onBoarding.dart';
 
+import 'UI/FavouritePage.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -18,7 +20,8 @@ class MyApp extends StatelessWidget {
 
         useMaterial3: true,
       ),
-      home: onBoarding(),
+      debugShowCheckedModeBanner: false,
+      home: FavoriteScreen(),
     );
   }
 }
