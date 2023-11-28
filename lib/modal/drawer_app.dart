@@ -31,7 +31,7 @@ class DrawerApp extends StatelessWidget {
                   Text(
                     'Sunie Pham',
                     style: TextStyle(
-                      fontSize: 24.0,
+                      fontSize: 20.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -39,7 +39,7 @@ class DrawerApp extends StatelessWidget {
                   Text(
                     'sunieux@gmail.com',
                     style: TextStyle(
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                       color: Colors.black,
                     ),
                   ),
