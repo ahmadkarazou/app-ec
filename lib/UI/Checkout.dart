@@ -194,15 +194,17 @@ class _CheckoutState extends State<Checkout> {
                       ],
                     ),
               SizedBox(height:20),
-              ElevatedButton(
-                style: buttonPrimary,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) =>  Payment()));
-                },
-                child: Text(
-                  'Continue to Payment', style: TextStyle(color: Colors.white,fontSize:20,fontWeight: FontWeight.w700 ),
+              Center(
+                child: ElevatedButton(
+                  style: buttonPrimary,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>  Payment()));
+                  },
+                  child: Text(
+                    'Continue to Payment', style: TextStyle(color: Colors.white,fontSize:20,fontWeight: FontWeight.w700 ),
+                  ),
                 ),
               ),
                       ]
