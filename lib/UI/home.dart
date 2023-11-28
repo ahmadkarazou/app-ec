@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled4/UI/Profile.dart';
 import 'package:untitled4/UI/search_screen.dart';
 
+import '../modal/drawer_app.dart';
 import 'Profile.dart';
 
 class Home extends StatefulWidget {
@@ -23,11 +24,11 @@ class _HomeState extends State<Home> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Column(),
+      drawer: DrawerApp(),
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Fresh home',
+          (selectedindex==0)? 'Fresh home':(selectedindex==1)?'Carte':'Profile',
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
