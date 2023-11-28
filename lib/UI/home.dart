@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/Profile.dart';
-import 'package:untitled4/UI/search_screen.dart';
 
-import '../modal/drawer_app.dart';
+import 'Cart.dart';
 import 'Profile.dart';
 
 class Home extends StatefulWidget {
@@ -17,18 +16,18 @@ class _HomeState extends State<Home> {
   TextEditingController Search = TextEditingController();
   List<Widget> pages = [
     HomePage(),
-    Text('Cart'),
+    Cart(),
     Profile(),
   ];
   int selectedindex = 0;
 
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: DrawerApp(),
-      appBar: AppBar(
-        centerTitle: true,
+      drawer: Column(),
+      appBar: AppBar(centerTitle: true,
         title: Text(
-          (selectedindex==0)? 'Fresh home':(selectedindex==1)?'Carte':'Profile',
+
+          'Fresh home',
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
@@ -69,198 +68,155 @@ class HomePage extends StatelessWidget {
     super.key,
   });
 
-
+  TextEditingController Search = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
-      child: ListView(children: [
-        ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.white)),
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => SearchScreen(),));
-            },
-            child: Container(
-              width: double.infinity,
-              height: 50,
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.search,
-                    size: 30,
-                    color: Colors.grey,
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    'Search',
-                    style: TextStyle(fontSize: 20, color: Colors.grey),
-                  ),
-                ],
+      child: SingleChildScrollView(
+          child: Column(
+        children: [
+          TextFormField(
+            controller: Search,
+            decoration: InputDecoration(
+              hintText: 'Search',
+              prefixIcon: Icon(
+                Icons.search,
+                size: 30,
               ),
-            )
-          // TextFormField(
-          //   controller: Search,
-          //   decoration: InputDecoration(
-          //     hintText: 'Search',
-          //     prefixIcon: Icon(
-          //       Icons.search,
-          //       size: 30,
-          //     ),
-          //     border: OutlineInputBorder(
-          //       borderRadius: BorderRadius.circular(30),
-          //     ),
-          //   ),
-          // ),
-        ),
-        SizedBox(height: 10),
-        Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.black,
-                    image: DecorationImage(
-                        image: AssetImage(
-                            'assets/images/e5e02c364e5cf881eb5ba87273800659_1.jpg'),
-                        opacity: .70,
-                        fit: BoxFit.fitWidth),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(24),
-                    ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+          Stack(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  color: Colors.black,
+                  image: DecorationImage(
+                      image:AssetImage(
+                          'assets/images/e5e02c364e5cf881eb5ba87273800659_1.jpg'),
+                      opacity: .70,
+                      fit: BoxFit.fitWidth),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(24),
                   ),
-                  margin: const EdgeInsets.symmetric(horizontal: 8),
-                  height: 175,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Fresh \nproducts',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                          ),
+                margin: const EdgeInsets.symmetric(horizontal: 8),
+                height: 175,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'Fresh \nproducts',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 30,
                         ),
                       ),
                     ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Special for you',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'See More',
-                      style: TextStyle(color: Colors.grey),
-                    ))
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SectionsImage(
-                    name: 'Hand med',
-                    image:
-                    'assets/images/white-hand-pen-icon-md-removebg-preview.png'),
-                SectionsImage(
-                    name: 'decoration',
-                    image: 'assets/images/download-removebg-preview.png'),
-                SectionsImage(
-                    name: 'Food',
-                    image:
-                    'assets/images/94ee2fda4931c26b3c55ed23d28e885e.png'),
-                SectionsImage(
-                    name: 'candies',
-                    image: 'assets/images/download__1_-removebg-preview.png'),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'popular products',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'See More',
-                      style: TextStyle(color: Colors.grey),
-                    ))
-              ],
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  prudact_widget(
-                      imageUrl: 'assets/images/images.jpg',
-                      title: 'Luxury soap',
-                      Pries: 29.43),
-                  prudact_widget(
-                      imageUrl: 'assets/images/images.jpg',
-                      title: 'Luxury soap',
-                      Pries: 29.43),
-                  prudact_widget(
-                      imageUrl: 'assets/images/images.jpg',
-                      title: 'Luxury soap',
-                      Pries: 29.43),
+                  ),
                 ],
+              )
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Special for you',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              TextButton(onPressed: () {}, child: Text('See More',style: TextStyle(color: Colors.grey),))
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              SectionsImage(
+                  name: 'Hand med',
+                  image:
+                      'assets/images/white-hand-pen-icon-md-removebg-preview.png'),
+              SectionsImage(
+                  name: 'decoration',
+                  image: 'assets/images/download-removebg-preview.png'),
+              SectionsImage(
+                  name: 'Food',
+                  image: 'assets/images/94ee2fda4931c26b3c55ed23d28e885e.png'),
+              SectionsImage(
+                  name: 'candies',
+                  image: 'assets/images/download__1_-removebg-preview.png'),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'popular products',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+              TextButton(onPressed: () {}, child: Text('See More',style: TextStyle(color: Colors.grey),))
+            ],
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
               children: [
-                Text(
-                  'Mega Sale',
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'See More',
-                      style: TextStyle(color: Colors.grey),
-                    ))
+                prudact_widget(
+                    imageUrl: 'assets/images/images.jpg',
+                    title: 'Luxury soap',
+                    Pries: 29.43),
+                prudact_widget(
+                    imageUrl: 'assets/images/images.jpg',
+                    title: 'Luxury soap',
+                    Pries: 29.43),
+                prudact_widget(
+                    imageUrl: 'assets/images/images.jpg',
+                    title: 'Luxury soap',
+                    Pries: 29.43),
               ],
             ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  prudact_widget(
-                      imageUrl: 'assets/images/images.jpg',
-                      title: 'Luxury soap',
-                      Pries: 29.43),
-                  prudact_widget(
-                      imageUrl: 'assets/images/images.jpg',
-                      title: 'Luxury soap',
-                      Pries: 29.43),
-                  prudact_widget(
-                      imageUrl: 'assets/images/images.jpg',
-                      title: 'Luxury soap',
-                      Pries: 29.43),
-                ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Mega Sale',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-            )
-          ],
-        ),
-      ]),
+              TextButton(onPressed: () {}, child: Text('See More',style: TextStyle(color: Colors.grey),))
+            ],
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                prudact_widget(
+                    imageUrl: 'assets/images/images.jpg',
+                    title: 'Luxury soap',
+                    Pries: 29.43),
+                prudact_widget(
+                    imageUrl: 'assets/images/images.jpg',
+                    title: 'Luxury soap',
+                    Pries: 29.43),
+                prudact_widget(
+                    imageUrl: 'assets/images/images.jpg',
+                    title: 'Luxury soap',
+                    Pries: 29.43),
+              ],
+            ),
+          )
+        ],
+      )),
     );
   }
 }
