@@ -23,7 +23,7 @@ class onBoarding extends StatelessWidget {
                   height:336 ,
                   decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage(
-                        'assets/FreshHome.jpeg',
+                        'assets/images/FreshHome.jpeg',
                     ),fit: BoxFit.fill
                     )
                   ),

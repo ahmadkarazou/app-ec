@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Profile.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -13,7 +15,7 @@ class _HomeState extends State<Home> {
   List<Widget> pages = [
     HomePage(),
     Text('Cart'),
-    Text(''),
+    Profile(),
   ];
   int selectedindex = 0;
 
