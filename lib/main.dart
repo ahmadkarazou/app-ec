@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'UI/home.dart';
-import 'UI/onBoarding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +17,7 @@ class MyApp extends StatelessWidget {
 
         useMaterial3: true,
       ),
-      home: onBoarding(),
+      home: Home(),
     );
   }
 }

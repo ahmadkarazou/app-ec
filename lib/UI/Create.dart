@@ -77,7 +77,7 @@ class _CreateState extends State<Create> {
                     'Sign Up', style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.w700),textAlign: TextAlign.center,
                   ),
                 ),
-                SizedBox(height: 30.0),
+                SizedBox(height: 20),
                 Text('or sign up with',style: TextStyle(color: Color(0xff707070),fontSize: 12, fontWeight: FontWeight.w300),textAlign: TextAlign.center,
                 ),
                 SizedBox(width: 200,height: 130,

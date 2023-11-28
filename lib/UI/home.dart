@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/Profile.dart';
 
+import 'Profile.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
