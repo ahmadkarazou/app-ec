@@ -33,7 +33,7 @@ class _CheckoutState extends State<Checkout> {
               Text('STEP 1',style: TextStyle(color:Color(0xff1D1F22),fontSize: 11, ),),
               Text('Shipping',style: TextStyle(color:Color(0xff1D1F22),fontSize: 25,fontWeight: FontWeight.bold ),),
               SizedBox(height:10),
-              SizedBox(height:550,width:double.infinity,
+              SizedBox(height:600,width:double.infinity,
                 child: ListView(scrollDirection: Axis.vertical,
                     children:[ Column(
                       crossAxisAlignment:CrossAxisAlignment.start,
