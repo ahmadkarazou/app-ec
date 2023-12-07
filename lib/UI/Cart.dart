@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../button.dart';
+
+import '../modal/button.dart';
 import 'Checkout.dart';
 
 class Cart extends StatefulWidget {

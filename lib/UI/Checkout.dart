@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/Payment.dart';
 
-import '../button.dart';
+
+import '../modal/button.dart';
 
 class Checkout extends StatefulWidget {
   const Checkout({super.key});

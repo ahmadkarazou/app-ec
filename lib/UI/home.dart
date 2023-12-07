@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/Profile.dart';
+import 'package:untitled4/UI/search_screen.dart';
+import 'package:untitled4/modal/drawer_app.dart';
 
 import 'Cart.dart';
-import 'Profile.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,20 +15,20 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
-  TextEditingController Search = TextEditingController();
   List<Widget> pages = [
-    HomePage(),
+    const HomePage(),
     Cart(),
-    Profile(),
+    const Profile(),
   ];
   int selectedindex = 0;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Column(),
-      appBar: AppBar(centerTitle: true,
-        title: Text(
-
+      drawer: const DrawerApp(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text(
           'Fresh home',
           style: TextStyle(
             fontSize: 30,
@@ -35,11 +37,25 @@ class _HomeState extends State<Home> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.notifications_outlined,
-                size: 35,
-              ))
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SearchScreen(),
+                  ));
+            },
+            icon: const Icon(
+              Icons.search,
+              size: 35,
+            ),
+          ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications_outlined,
+              size: 35,
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -50,7 +66,7 @@ class _HomeState extends State<Home> {
             selectedindex = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
           BottomNavigationBarItem(
               icon: Icon(Icons.shopping_cart_outlined), label: ''),
@@ -64,40 +80,26 @@ class _HomeState extends State<Home> {
 }
 
 class HomePage extends StatelessWidget {
-  HomePage({
+  const HomePage({
     super.key,
   });
 
-  TextEditingController Search = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    double hei = MediaQuery.of(context).size.height;
+
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: SingleChildScrollView(
           child: Column(
         children: [
-          TextFormField(
-            controller: Search,
-            decoration: InputDecoration(
-              hintText: 'Search',
-              prefixIcon: Icon(
-                Icons.search,
-                size: 30,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-          ),
-          SizedBox(height: 10),
           Stack(
             children: [
               Container(
                 decoration: const BoxDecoration(
                   color: Colors.black,
                   image: DecorationImage(
-                      image:AssetImage(
+                      image: AssetImage(
                           'assets/images/e5e02c364e5cf881eb5ba87273800659_1.jpg'),
                       opacity: .70,
                       fit: BoxFit.fitWidth),
@@ -106,7 +108,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 margin: const EdgeInsets.symmetric(horizontal: 8),
-                height: 175,
+                height: hei*0.21,
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +117,7 @@ class HomePage extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 10.0),
                     child: TextButton(
                       onPressed: () {},
-                      child: Text(
+                      child: const Text(
                         'Fresh \nproducts',
                         style: TextStyle(
                           color: Colors.white,
@@ -128,15 +130,20 @@ class HomePage extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: hei*0.02),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Special for you',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              TextButton(onPressed: () {}, child: Text('See More',style: TextStyle(color: Colors.grey),))
+              TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'See More',
+                    style: TextStyle(color: Colors.grey),
+                  ))
             ],
           ),
           Row(
@@ -160,26 +167,31 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'popular products',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              TextButton(onPressed: () {}, child: Text('See More',style: TextStyle(color: Colors.grey),))
+              TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'See More',
+                    style: TextStyle(color: Colors.grey),
+                  ))
             ],
           ),
-          SingleChildScrollView(
+          const SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                prudact_widget(
+                PrudacteWidget(
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
-                prudact_widget(
+                PrudacteWidget(
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
-                prudact_widget(
+                PrudacteWidget(
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
@@ -189,26 +201,31 @@ class HomePage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Mega Sale',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              TextButton(onPressed: () {}, child: Text('See More',style: TextStyle(color: Colors.grey),))
+              TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'See More',
+                    style: TextStyle(color: Colors.grey),
+                  ))
             ],
           ),
-          SingleChildScrollView(
+          const SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                prudact_widget(
+                PrudacteWidget(
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
-                prudact_widget(
+                PrudacteWidget(
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
-                prudact_widget(
+                PrudacteWidget(
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
@@ -221,8 +238,8 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class prudact_widget extends StatelessWidget {
-  const prudact_widget({
+class PrudacteWidget extends StatelessWidget {
+  const PrudacteWidget({
     super.key,
     required this.imageUrl,
     required this.title,
@@ -235,14 +252,16 @@ class prudact_widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double hei = MediaQuery.of(context).size.height;
+    double wid = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.grey)),
-      height: 240,
-      width: 170,
+      height: hei*0.31,
+      width:wid*0.4,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -250,13 +269,13 @@ class prudact_widget extends StatelessWidget {
             imageUrl,
             width: 150,
           ),
-          SizedBox(height: 5),
+          SizedBox(height: hei*0.01),
           Text(
             title,
             style: TextStyle(
                 fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 5),
+          SizedBox(height: hei*0.01),
           Text(
             '\$$Pries',
             style: TextStyle(

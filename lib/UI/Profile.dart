@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../button.dart';
+import '../modal/button.dart';
+
+
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
