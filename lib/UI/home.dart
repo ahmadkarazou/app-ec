@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:untitled4/UI/Categore_screen.dart';
 import 'package:untitled4/UI/Profile.dart';
+import 'package:untitled4/UI/detal_prudacte_screen.dart';
+import 'package:untitled4/UI/notification_screen.dart';
 import 'package:untitled4/UI/search_screen.dart';
 import 'package:untitled4/modal/drawer_app.dart';
 
 import 'Cart.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  Home({super.key, this.selectedindex= 0});
+
+  late final int selectedindex ;
 
   @override
   State<Home> createState() => _HomeState();
@@ -19,7 +24,6 @@ class _HomeState extends State<Home> {
     Cart(),
     const Profile(),
   ];
-  int selectedindex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,11 @@ class _HomeState extends State<Home> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => NotificationScreen(),
+              ));
+            },
             icon: const Icon(
               Icons.notifications_outlined,
               size: 35,
@@ -59,10 +67,10 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.black,
-        currentIndex: selectedindex,
+        currentIndex: widget.selectedindex,
         onTap: (index) {
           setState(() {
-            selectedindex = index;
+            widget.selectedindex = index;
           });
         },
         items: const [
@@ -73,7 +81,7 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.person_2_outlined), label: ''),
         ],
       ),
-      body: pages.elementAt(selectedindex),
+      body: pages.elementAt(widget.selectedindex),
     );
   }
 }
@@ -137,28 +145,30 @@ class HomePage extends StatelessWidget {
                 'Special for you',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
-              TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'See More',
-                    style: TextStyle(color: Colors.grey),
-                  ))
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SectionsImage(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CategoreScreen(),
+                    ));
+                  },
                   name: 'Hand med',
                   image:
                       'assets/images/white-hand-pen-icon-md-removebg-preview.png'),
               SectionsImage(
+                  onTap: () {},
                   name: 'decoration',
                   image: 'assets/images/download-removebg-preview.png'),
               SectionsImage(
+                  onTap: () {},
                   name: 'Food',
                   image: 'assets/images/94ee2fda4931c26b3c55ed23d28e885e.png'),
               SectionsImage(
+                  onTap: () {},
                   name: 'candies',
                   image: 'assets/images/download__1_-removebg-preview.png'),
             ],
@@ -178,21 +188,28 @@ class HomePage extends StatelessWidget {
                   ))
             ],
           ),
-          const SingleChildScrollView(
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
                 PrudacteWidget(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => DetalPrudacteScreen(),
+                      ));
+                    },
                     isFavourite: false,
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
                 PrudacteWidget(
+                    onTap: () {},
                     isFavourite: false,
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
                 PrudacteWidget(
+                    onTap: () {},
                     isFavourite: false,
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
@@ -215,21 +232,24 @@ class HomePage extends StatelessWidget {
                   ))
             ],
           ),
-          const SingleChildScrollView(
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
                 PrudacteWidget(
+                    onTap: () {},
                     isFavourite: true,
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
                 PrudacteWidget(
+                    onTap: () {},
                     isFavourite: true,
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
                 PrudacteWidget(
+                    onTap: () {},
                     isFavourite: true,
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
@@ -250,12 +270,14 @@ class PrudacteWidget extends StatefulWidget {
     required this.title,
     required this.Pries,
     required this.isFavourite,
+    required this.onTap,
   });
 
   final String imageUrl;
   final String title;
   final double Pries;
   final bool isFavourite;
+  final VoidCallback onTap;
 
   @override
   State<PrudacteWidget> createState() => _PrudacteWidgetState();
@@ -272,34 +294,37 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Colors.grey)),
-      height: hei * 0.31,
+      height: hei * 0.3,
       width: wid * 0.4,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  widget.imageUrl,
+          TextButton(
+            onPressed: widget.onTap,
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.asset(
+                    widget.imageUrl,
+                  ),
                 ),
-              ),
-              Positioned(
-                left: 5,
-                top: 5,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Icons.favorite,
-                      color: (widget.isFavourite) ? Colors.red : Colors.grey,
+                Positioned(
+                  left: 5,
+                  top: 5,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.favorite,
+                        color: (widget.isFavourite) ? Colors.red : Colors.grey,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           SizedBox(height: hei * 0.01),
           Text(
@@ -324,20 +349,24 @@ class SectionsImage extends StatelessWidget {
     required this.name,
     required this.image,
     super.key,
+    required this.onTap,
   });
 
-  String image;
-  String name;
+  final String image;
+  final String name;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    double hei = MediaQuery.of(context).size.height;
+    double wid = MediaQuery.of(context).size.width;
     return Column(
       children: [
         TextButton(
-          onPressed: (){},
+          onPressed: onTap,
           child: Container(
-            height: 65,
-            width: 65,
+            height: hei * 0.07,
+            width: wid * 0.15,
             decoration: BoxDecoration(
               color: Colors.grey.shade100,
               borderRadius: const BorderRadius.all(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled4/UI/home.dart';
 
 class DrawerApp extends StatelessWidget {
   const DrawerApp({super.key});
@@ -49,19 +50,31 @@ class DrawerApp extends StatelessWidget {
           ),
           SizedBox(height: 40),
           DrawerIcon(
-            onTab: () {},
+            onTab: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Home(selectedindex: 0),
+              ));
+            },
             title: 'Home Pages',
             icon: Icons.home_outlined,
           ),
           SizedBox(height: 10),
           DrawerIcon(
-            onTab: () {},
+            onTab: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Home(selectedindex: 1),
+              ));
+            },
             title: 'My Order',
             icon: Icons.shopping_cart_outlined,
           ),
           SizedBox(height: 10),
           DrawerIcon(
-            onTab: () {},
+            onTab: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Home(selectedindex: 2),
+              ));
+            },
             title: 'My Profile',
             icon: Icons.person_2_outlined,
           ),
@@ -71,7 +84,10 @@ class DrawerApp extends StatelessWidget {
               SizedBox(width: 40),
               Text(
                 'OTHER',
-                style: TextStyle(color: Colors.grey, fontSize: 20,fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500),
               ),
             ],
           ),

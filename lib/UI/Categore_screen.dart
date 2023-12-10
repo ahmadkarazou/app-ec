@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 
-import 'prodect.dart';
-
-class FavoriteScreen extends StatefulWidget {
-  const FavoriteScreen({super.key});
+class CategoreScreen extends StatefulWidget {
+  const CategoreScreen({super.key});
 
   @override
-  _FavoriteScreenState createState() => _FavoriteScreenState();
+  State<CategoreScreen> createState() => _CategoreScreenState();
 }
 
-class _FavoriteScreenState extends State<FavoriteScreen> {
-  List<Product> favoriteProducts =
-      demoProducts.where((product) => product.isFavourite).toList();
-
+class _CategoreScreenState extends State<CategoreScreen> {
   @override
   Widget build(BuildContext context) {
     double hei = MediaQuery.of(context).size.height;
@@ -22,7 +17,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              'Favorite',
+              'Hand med',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -31,87 +26,48 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
           body: GridView.count(
             crossAxisCount: 2,
-            childAspectRatio: hei * 0.00085,
+            childAspectRatio: hei * 0.00083,
             children: [
               Container(
                 height: hei,
                 child: PrudacteWidget(
-                    onTap: (){},
+                  AddCart: (){},
+                    onTap: () {},
                     isFavourite: true,
                     imageUrl: 'assets/images/images.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
               ),
               PrudacteWidget(
-                  onTap: (){},
+                  AddCart: (){},
+                  onTap: () {},
                   isFavourite: true,
                   imageUrl: 'assets/images/images.jpg',
                   title: 'Luxury soap',
                   Pries: 29.43),
               PrudacteWidget(
-                  onTap: (){},
+                  AddCart: (){},
+                  onTap: () {},
                   isFavourite: true,
                   imageUrl: 'assets/images/images.jpg',
                   title: 'Luxury soap',
                   Pries: 29.43),
               PrudacteWidget(
-                  onTap: (){},
+                  AddCart: (){},
+                  onTap: () {},
                   isFavourite: true,
                   imageUrl: 'assets/images/images.jpg',
                   title: 'Luxury soap',
                   Pries: 29.43),
               PrudacteWidget(
-                onTap: (){},
+                  AddCart: (){},
+                  onTap: () {},
                   isFavourite: true,
                   imageUrl: 'assets/images/images.jpg',
                   title: 'Luxury soap',
                   Pries: 29.43),
             ],
-          )
-          // Center(
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: SizedBox(
-          //         width: 350,
-          //         height: 600,
-          //         child: ListView.separated(
-          //             itemBuilder: (context, index) => ProductCard(
-          //                   product: favoriteProducts[index],
-          //                   onPress: () {
-          //                     // Handle card tap as needed
-          //                   },
-          //                   onFavoriteChanged: (isFavourite) {
-          //                     setState(() {
-          //                       favoriteProducts = [
-          //                         ...favoriteProducts
-          //                       ]; // Create a new list
-          //                       final productIndex = favoriteProducts.indexWhere(
-          //                           (product) =>
-          //                               product.id == favoriteProducts[index].id);
-          //
-          //                       if (isFavourite) {
-          //                         // Add the product to favorites
-          //                         if (productIndex == -1) {
-          //                           favoriteProducts.add(favoriteProducts[index]);
-          //                         }
-          //                       } else {
-          //                         // Remove the product from favorites
-          //                         if (productIndex != -1) {
-          //                           favoriteProducts.removeAt(productIndex);
-          //                         }
-          //                       }
-          //                     });
-          //                   },
-          //                 ),
-          //             separatorBuilder: (context, index) {
-          //               return SizedBox(
-          //                 height: 30,
-          //               );
-          //             },
-          //             itemCount: favoriteProducts.length)),
-          //   ),
-          // ),
-          ),
+          )),
     );
   }
 }
@@ -123,7 +79,7 @@ class PrudacteWidget extends StatefulWidget {
     required this.title,
     required this.Pries,
     required this.isFavourite,
-    required this.onTap,
+    required this.onTap, required this.AddCart,
   });
 
   final String imageUrl;
@@ -131,6 +87,7 @@ class PrudacteWidget extends StatefulWidget {
   final double Pries;
   final bool isFavourite;
   final VoidCallback onTap;
+  final VoidCallback AddCart;
 
   @override
   State<PrudacteWidget> createState() => _PrudacteWidgetState();
@@ -184,10 +141,20 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
                 fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: hei * 0.01),
-          Text(
-            '\$${widget.Pries}',
-            style: TextStyle(
-                color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '\$${widget.Pries}',
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15),
+              ),
+              IconButton(
+                onPressed:widget.AddCart,
+                icon: Icon(Icons.add_shopping_cart),
+              )
+            ],
           ),
         ],
       ),
