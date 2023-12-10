@@ -11,7 +11,7 @@ import 'Cart.dart';
 class Home extends StatefulWidget {
   Home({super.key, this.selectedindex= 0});
 
-  late final int selectedindex ;
+   int? selectedindex =0;
 
   @override
   State<Home> createState() => _HomeState();
@@ -21,7 +21,7 @@ class _HomeState extends State<Home> {
   @override
   List<Widget> pages = [
     const HomePage(),
-    Cart(),
+    const Cart(),
     const Profile(),
   ];
 
@@ -67,7 +67,7 @@ class _HomeState extends State<Home> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.black,
-        currentIndex: widget.selectedindex,
+        currentIndex: widget.selectedindex!,
         onTap: (index) {
           setState(() {
             widget.selectedindex = index;
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.person_2_outlined), label: ''),
         ],
       ),
-      body: pages.elementAt(widget.selectedindex),
+      body: pages.elementAt(widget.selectedindex!),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/FavouritePage.dart';
 import 'package:untitled4/UI/LogIn.dart';
+import 'package:untitled4/UI/rate_screen.dart';
 
 import 'edit_profile.dart';
 
@@ -90,7 +91,11 @@ class Profile extends StatelessWidget {
                       wid: wid,
                       title: 'Rate This App',
                       icon: Icons.star,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RateScreen(),
+                        ));
+                      },
                     ),
                     Divider(height: 1, color: Colors.black12),
                     ButtonNut(

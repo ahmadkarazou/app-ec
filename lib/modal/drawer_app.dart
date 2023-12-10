@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/home.dart';
 
+import '../UI/setting_screen.dart';
+
 class DrawerApp extends StatelessWidget {
   const DrawerApp({super.key});
 
@@ -93,7 +95,11 @@ class DrawerApp extends StatelessWidget {
           ),
           SizedBox(height: 30),
           DrawerIcon(
-            onTab: () {},
+            onTab: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => SettingScreen(),
+              ));
+            },
             title: 'Setting',
             icon: Icons.settings_outlined,
           ),
