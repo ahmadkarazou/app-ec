@@ -77,7 +77,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                         topRight: Radius.circular(20),
                         topLeft: Radius.circular(20))),
                 width: wid,
-                height: hei * 0.585,
+                height: hei * 0.57,
                 padding: EdgeInsets.all(20),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -125,7 +125,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                           fontSize: 16,
                         ),
                       ),
-                      SizedBox(height: hei * 0.07),
+                      SizedBox(height: hei * 0.05),
                       ElevatedButton(
                         onPressed: () {},
                         style: buttonPrimary,

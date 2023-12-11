@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/onBoarding.dart';
+import 'package:untitled4/firebase_options.dart';
 
 import 'UI/FavouritePage.dart';
 
@@ -8,7 +10,10 @@ import 'UI/FavouritePage.dart';
 
 
 
-void main() {
+void main() async{
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

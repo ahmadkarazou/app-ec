@@ -27,61 +27,63 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const DrawerApp(),
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          'Fresh home',
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
+    return SafeArea(
+      child: Scaffold(
+        drawer: const DrawerApp(),
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            'Fresh home',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SearchScreen(),
+                    ));
+              },
+              icon: const Icon(
+                Icons.search,
+                size: 35,
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => NotificationScreen(),
+                ));
+              },
+              icon: const Icon(
+                Icons.notifications_outlined,
+                size: 35,
+              ),
+            ),
+          ],
         ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SearchScreen(),
-                  ));
-            },
-            icon: const Icon(
-              Icons.search,
-              size: 35,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => NotificationScreen(),
-              ));
-            },
-            icon: const Icon(
-              Icons.notifications_outlined,
-              size: 35,
-            ),
-          ),
-        ],
+        bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.black,
+          currentIndex: widget.selectedindex!,
+          onTap: (index) {
+            setState(() {
+              widget.selectedindex = index;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.shopping_cart_outlined), label: ''),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_2_outlined), label: ''),
+          ],
+        ),
+        body: pages.elementAt(widget.selectedindex!),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.black,
-        currentIndex: widget.selectedindex!,
-        onTap: (index) {
-          setState(() {
-            widget.selectedindex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart_outlined), label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person_2_outlined), label: ''),
-        ],
-      ),
-      body: pages.elementAt(widget.selectedindex!),
     );
   }
 }

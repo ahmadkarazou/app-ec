@@ -34,7 +34,7 @@ class _CartState extends State<Cart> {
             ),
             Container(
               padding: EdgeInsets.only(left: 20,top: 30,right: 20),
-              height: hei * 0.31,
+              height: hei * 0.3,
               width: wid,
               decoration: BoxDecoration(
                 color: Colors.grey[300],
@@ -89,7 +89,7 @@ class _CartState extends State<Cart> {
                     ],
                   ),
                   SizedBox(
-                    height: hei*0.025,
+                    height: hei*0.02,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
