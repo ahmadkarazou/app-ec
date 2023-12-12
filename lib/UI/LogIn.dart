@@ -35,6 +35,7 @@ class LogIn extends StatelessWidget {
                     ),
                     SizedBox(height: hei * 0.05),
                     TextField(
+                      keyboardType: TextInputType.emailAddress,
                       controller: TextEditingController(),
                       decoration: InputDecoration(
                         hintText: 'Email Address',
@@ -42,6 +43,8 @@ class LogIn extends StatelessWidget {
                     ),
                     SizedBox(height: hei * 0.05),
                     TextField(
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
                       controller: TextEditingController(),
                       decoration: InputDecoration(
                         hintText: 'Password',

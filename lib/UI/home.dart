@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/Categore_screen.dart';
 import 'package:untitled4/UI/Profile.dart';
@@ -9,12 +10,27 @@ import 'package:untitled4/modal/drawer_app.dart';
 import 'Cart.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key, this.selectedindex= 0});
+  Home({super.key, this.selectedindex = 0});
 
-   int? selectedindex =0;
+  int? selectedindex = 0;
 
   @override
   State<Home> createState() => _HomeState();
+}
+
+final _aoth = FirebaseAuth.instance;
+late User singedInUser;
+
+void getCurrentUser() {
+  try {
+    final user = _aoth.currentUser;
+    if (user != null) {
+      singedInUser = user;
+      print(singedInUser.email);
+    }
+  } catch (e) {
+    print(e);
+  }
 }
 
 class _HomeState extends State<Home> {
