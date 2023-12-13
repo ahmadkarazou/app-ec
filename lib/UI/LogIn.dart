@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:untitled4/UI/Create.dart';
 import 'package:untitled4/UI/Forgot.dart';
 import 'package:untitled4/UI/home.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import '../modal/button.dart';
 
-
-
-class LogIn extends StatelessWidget {
+class LogIn extends StatefulWidget {
   const LogIn({super.key});
+
+  @override
+  State<LogIn> createState() => _LogInState();
+}
+
+class _LogInState extends State<LogIn> {
+  final _auth = FirebaseAuth.instance;
+  late String email;
+  late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +43,10 @@ class LogIn extends StatelessWidget {
                     SizedBox(height: hei * 0.05),
                     TextField(
                       keyboardType: TextInputType.emailAddress,
-                      controller: TextEditingController(),
+                      //controller: TextEditingController(),
+                      onChanged: (value) {
+                        email = value;
+                      },
                       decoration: InputDecoration(
                         hintText: 'Email Address',
                       ),
@@ -45,11 +55,15 @@ class LogIn extends StatelessWidget {
                     TextField(
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
-                      controller: TextEditingController(),
+                      // controller: TextEditingController(),
+                      onChanged: (value) {
+                        password = value;
+                      },
                       decoration: InputDecoration(
                         hintText: 'Password',
                       ),
-                    ), SizedBox(height: hei * 0.05),
+                    ),
+                    SizedBox(height: hei * 0.05),
                     TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -57,7 +71,6 @@ class LogIn extends StatelessWidget {
                             MaterialPageRoute(builder: (context) => Forgot()),
                           );
                         },
-          
                         child: Text(
                           'Forgot password?',
                           textAlign: TextAlign.right,
@@ -68,9 +81,17 @@ class LogIn extends StatelessWidget {
               SizedBox(height: hei * 0.05),
               ElevatedButton(
                 style: buttonPrimary,
-                onPressed: () {
-                  Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => Home()));
+                onPressed: () async {
+                  try {
+                    final user = await _auth.signInWithEmailAndPassword(
+                        email: email, password: password);
+                    if(user!=null){
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => Home()));
+                    }
+                  } catch (e) {
+                    print(e);
+                  }
                 },
                 child: Text(
                   'Log In',

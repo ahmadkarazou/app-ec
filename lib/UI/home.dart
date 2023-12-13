@@ -18,21 +18,6 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-final _aoth = FirebaseAuth.instance;
-late User singedInUser;
-
-void getCurrentUser() {
-  try {
-    final user = _aoth.currentUser;
-    if (user != null) {
-      singedInUser = user;
-      print(singedInUser.email);
-    }
-  } catch (e) {
-    print(e);
-  }
-}
-
 class _HomeState extends State<Home> {
   @override
   List<Widget> pages = [
@@ -40,6 +25,27 @@ class _HomeState extends State<Home> {
     const Cart(),
     const Profile(),
   ];
+  final _auth = FirebaseAuth.instance;
+  late User singedInUser;
+
+@override
+  void initState() {
+   getCurrentUser();
+    super.initState();
+  }
+
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        singedInUser = user;
+        print(singedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

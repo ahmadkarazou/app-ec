@@ -2,11 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:untitled4/UI/FavouritePage.dart';
 import 'package:untitled4/UI/LogIn.dart';
 import 'package:untitled4/UI/rate_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'edit_profile.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
+
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +111,8 @@ class Profile extends StatelessWidget {
                         title: 'Log Out',
                         icon: Icons.exit_to_app,
                         onTap: () {
+                          _auth.signOut();
+
                           Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
