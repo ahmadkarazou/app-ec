@@ -3,7 +3,7 @@ import 'package:untitled4/UI/Create.dart';
 import 'package:untitled4/UI/Forgot.dart';
 import 'package:untitled4/UI/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../modal/button.dart';
+import '../widget/button.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});

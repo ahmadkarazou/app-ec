@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 
-import '../modal/button.dart';
+import '../widget/button.dart';
 import 'LogIn.dart';
 
 class NewPassword extends StatelessWidget {

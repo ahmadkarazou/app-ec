@@ -14,7 +14,9 @@ class _CategoreScreenState extends State<CategoreScreen> {
     double wid = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+          //backgroundColor: Colors.grey.shade100,
           appBar: AppBar(
+           // backgroundColor: Colors.grey.shade100,
             centerTitle: true,
             title: Text(
               'Hand med',
@@ -26,12 +28,12 @@ class _CategoreScreenState extends State<CategoreScreen> {
           ),
           body: GridView.count(
             crossAxisCount: 2,
-            childAspectRatio: hei * 0.00083,
+            childAspectRatio: hei * 0.00088,
             children: [
               Container(
                 height: hei,
                 child: PrudacteWidget(
-                  AddCart: (){},
+                    AddCart: () {},
                     onTap: () {},
                     isFavourite: true,
                     imageUrl: 'assets/images/images.jpg',
@@ -39,28 +41,28 @@ class _CategoreScreenState extends State<CategoreScreen> {
                     Pries: 29.43),
               ),
               PrudacteWidget(
-                  AddCart: (){},
+                  AddCart: () {},
                   onTap: () {},
                   isFavourite: true,
                   imageUrl: 'assets/images/images.jpg',
                   title: 'Luxury soap',
                   Pries: 29.43),
               PrudacteWidget(
-                  AddCart: (){},
+                  AddCart: () {},
                   onTap: () {},
                   isFavourite: true,
                   imageUrl: 'assets/images/images.jpg',
                   title: 'Luxury soap',
                   Pries: 29.43),
               PrudacteWidget(
-                  AddCart: (){},
+                  AddCart: () {},
                   onTap: () {},
                   isFavourite: true,
                   imageUrl: 'assets/images/images.jpg',
                   title: 'Luxury soap',
                   Pries: 29.43),
               PrudacteWidget(
-                  AddCart: (){},
+                  AddCart: () {},
                   onTap: () {},
                   isFavourite: true,
                   imageUrl: 'assets/images/images.jpg',
@@ -79,7 +81,8 @@ class PrudacteWidget extends StatefulWidget {
     required this.title,
     required this.Pries,
     required this.isFavourite,
-    required this.onTap, required this.AddCart,
+    required this.onTap,
+    required this.AddCart,
   });
 
   final String imageUrl;
@@ -102,46 +105,36 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
       margin: const EdgeInsets.all(10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey)),
+        borderRadius: BorderRadius.circular(10),
+       // border: Border.all(color: Colors.grey),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color:Colors.black38,
+            spreadRadius:.5,
+            blurRadius: 6
+          )
+        ]
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextButton(
             onPressed: widget.onTap,
-            child: Stack(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    widget.imageUrl,
-                  ),
-                ),
-                Positioned(
-                  left: 5,
-                  top: 5,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite,
-                        color: (widget.isFavourite) ? Colors.red : Colors.grey,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                widget.imageUrl,
+              ),
             ),
           ),
-          SizedBox(height: hei * 0.01),
           Text(
             widget.title,
             style: TextStyle(
                 fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: hei * 0.01),
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 '\$${widget.Pries}',
@@ -150,9 +143,25 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
                     fontWeight: FontWeight.bold,
                     fontSize: 15),
               ),
-              IconButton(
-                onPressed:widget.AddCart,
-                icon: Icon(Icons.add_shopping_cart),
+              Row(
+                children: [
+                  IconButton(
+                    onPressed: widget.AddCart,
+                    icon: Icon(Icons.add_shopping_cart),
+                  ),
+                  CircleAvatar(
+                    radius: 15,
+                    backgroundColor: Colors.red.shade100,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        size: 14,
+                        Icons.favorite,
+                        color: (widget.isFavourite) ? Colors.red : Colors.grey,
+                      ),
+                    ),
+                  ),
+                ],
               )
             ],
           ),

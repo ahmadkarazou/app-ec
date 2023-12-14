@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../modal/button.dart';
+import '../widget/button.dart';
 
 class RateScreen extends StatefulWidget {
   const RateScreen({super.key});

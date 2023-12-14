@@ -5,7 +5,7 @@ import 'package:untitled4/UI/Profile.dart';
 import 'package:untitled4/UI/detal_prudacte_screen.dart';
 import 'package:untitled4/UI/notification_screen.dart';
 import 'package:untitled4/UI/search_screen.dart';
-import 'package:untitled4/modal/drawer_app.dart';
+import 'package:untitled4/widget/drawer_app.dart';
 
 import 'Cart.dart';
 
@@ -28,9 +28,9 @@ class _HomeState extends State<Home> {
   final _auth = FirebaseAuth.instance;
   late User singedInUser;
 
-@override
+  @override
   void initState() {
-   getCurrentUser();
+    getCurrentUser();
     super.initState();
   }
 
@@ -45,7 +45,6 @@ class _HomeState extends State<Home> {
       print(e);
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +127,14 @@ class HomePage extends StatelessWidget {
             children: [
               Container(
                 decoration: const BoxDecoration(
-                  color: Colors.black,
+                  boxShadow: [
+                    BoxShadow(
+                        color:Colors.black54,
+                        spreadRadius:.1,
+                        blurRadius: 5
+                    )
+                  ],
+                  color: Colors.black12,
                   image: DecorationImage(
                       image: AssetImage(
                           'assets/images/e5e02c364e5cf881eb5ba87273800659_1.jpg'),
@@ -138,7 +144,7 @@ class HomePage extends StatelessWidget {
                     Radius.circular(24),
                   ),
                 ),
-                margin: const EdgeInsets.symmetric(horizontal: 8),
+                margin: const EdgeInsets.all(8),
                 height: hei * 0.21,
               ),
               Column(
@@ -313,55 +319,67 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
     double hei = MediaQuery.of(context).size.height;
     double wid = MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.all( 10),
+
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: Colors.grey)),
-      height: hei * 0.3,
+          boxShadow: [
+            BoxShadow(
+                color:Colors.black54,
+                spreadRadius:.1,
+                blurRadius: 5
+            )
+          ],
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          //border: Border.all(color: Colors.grey)
+    ),
+      height: hei * 0.29,
       width: wid * 0.4,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextButton(
             onPressed: widget.onTap,
-            child: Stack(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                widget.imageUrl,
+              ),
+            ),
+          ),
+          SizedBox(height: hei * 0.01),
+          Container(
+            child: Column(
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.asset(
-                    widget.imageUrl,
-                  ),
+                Text(
+                  widget.title,
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
                 ),
-                Positioned(
-                  left: 5,
-                  top: 5,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: IconButton(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      '\$${widget.Pries}',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15),
+                    ),
+                    IconButton(
                       onPressed: () {},
                       icon: Icon(
                         Icons.favorite,
                         color: (widget.isFavourite) ? Colors.red : Colors.grey,
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),
-          ),
-          SizedBox(height: hei * 0.01),
-          Text(
-            widget.title,
-            style: TextStyle(
-                fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: hei * 0.01),
-          Text(
-            '\$${widget.Pries}',
-            style: TextStyle(
-                color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15),
-          ),
+          )
         ],
       ),
     );
@@ -393,6 +411,13 @@ class SectionsImage extends StatelessWidget {
             width: wid * 0.15,
             decoration: BoxDecoration(
               color: Colors.grey.shade100,
+              boxShadow: [
+                BoxShadow(
+                    color:Colors.black54,
+                    spreadRadius:.1,
+                    blurRadius: 5
+                )
+              ],
               borderRadius: const BorderRadius.all(
                 Radius.circular(16),
               ),

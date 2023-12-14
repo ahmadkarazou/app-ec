@@ -31,7 +31,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
               margin: EdgeInsets.all(20),
               padding: EdgeInsets.all(10),
               width: wid,
-              decoration: BoxDecoration(
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                    color:Colors.black54,
+                    spreadRadius:.1,
+                    blurRadius: 5
+                )
+              ],
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
               child: Column(
                 children: [
@@ -51,6 +57,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
               padding: EdgeInsets.all(10),
               width: wid,
               decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color:Colors.black54,
+                        spreadRadius:.1,
+                        blurRadius: 5
+                    )
+                  ],
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
               child: Column(
                 children: [
@@ -70,6 +83,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
               padding: EdgeInsets.all(10),
               width: wid,
               decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        color:Colors.black54,
+                        spreadRadius:.1,
+                        blurRadius: 5
+                    )
+                  ],
                   borderRadius: BorderRadius.circular(20), color: Colors.white),
               child: Column(
                 children: [

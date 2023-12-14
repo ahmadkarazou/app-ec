@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../modal/button.dart';
+import '../widget/button.dart';
 
 class DetalPrudacteScreen extends StatefulWidget {
   const DetalPrudacteScreen({super.key});

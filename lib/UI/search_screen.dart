@@ -16,45 +16,46 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'Search',
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
+        title:Container(
+          width: 290,
+          height: 40,
+          child: TextField(
+            controller: Search,
+            decoration:InputDecoration(
+
+              hintText: 'Search',
+              hintStyle: TextStyle(fontSize: 15,
+                height: 4
+
+            ),
+              prefixIcon: Icon(
+                Icons.search,
+                size: 30,
+              ),
+
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: SingleChildScrollView(
-            child: Column(
-          children: [
-            TextFormField(
-              controller: Search,
-              decoration: InputDecoration(
-                hintText: 'Search',
-                prefixIcon: Icon(
-                  Icons.search,
-                  size: 30,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-            ),
-            SizedBox(height: 15),
-            CategureWidget(imageUrl:  'assets/images/أنواع_الحرف_اليدوية.jpg',title: 'Hand med'),
-            SizedBox(height: 15),
-            CategureWidget(imageUrl:  'assets/images/pngtree-artistic-metal-tree-wall-art-wall-decor-picture-image_3640734.jpg',title: 'Arts and decoration'),
-            SizedBox(height: 15),
-            CategureWidget(imageUrl:  'assets/images/أكلات-آسيوية-الأشهر-والأكثر-تناولا-8790.jpg',title: 'Food'),
-            SizedBox(height: 15),
-            CategureWidget(imageUrl:  'assets/images/gateaux.jpg',title: 'candies'),
-            SizedBox(height: 15),
+      body: SingleChildScrollView(
+          child: Column(
+        children: [
 
-          ],
-        )),
-      ),
+          SizedBox(height: 15),
+          CategureWidget(imageUrl:  'assets/images/أنواع_الحرف_اليدوية.jpg',title: 'Hand med'),
+          SizedBox(height: 15),
+          CategureWidget(imageUrl:  'assets/images/pngtree-artistic-metal-tree-wall-art-wall-decor-picture-image_3640734.jpg',title: 'Arts and decoration'),
+          SizedBox(height: 15),
+          CategureWidget(imageUrl:  'assets/images/أكلات-آسيوية-الأشهر-والأكثر-تناولا-8790.jpg',title: 'Food'),
+          SizedBox(height: 15),
+          CategureWidget(imageUrl:  'assets/images/gateaux.jpg',title: 'candies'),
+          SizedBox(height: 15),
+
+        ],
+      )),
     ));
   }
 }

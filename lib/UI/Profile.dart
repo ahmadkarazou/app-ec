@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/FavouritePage.dart';
 import 'package:untitled4/UI/LogIn.dart';
@@ -15,6 +16,13 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final _auth = FirebaseAuth.instance;
+@override
+  void initState() {
+  FirebaseFirestore.instance
+      .collection('User')
+      .doc().get();
+
+  }
 
   @override
   Widget build(BuildContext context) {

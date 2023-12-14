@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:untitled4/UI/home.dart';
 
-import '../modal/button.dart';
+import '../widget/button.dart';
 import 'LogIn.dart';
 
 class Create extends StatefulWidget {
@@ -14,6 +15,7 @@ class Create extends StatefulWidget {
 
 class _CreateState extends State<Create> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   late String email;
   late String password;
@@ -44,7 +46,7 @@ class _CreateState extends State<Create> {
                   child: Column(
                     children: [
                       TextField(
-                       // controller: TextEditingController(),
+                        // controller: TextEditingController(),
                         decoration: const InputDecoration(
                           hintText: 'Enter your name',
                         ),
@@ -55,7 +57,7 @@ class _CreateState extends State<Create> {
                       SizedBox(height: hei * 0.05),
                       TextField(
                         keyboardType: TextInputType.emailAddress,
-                      //  controller: TextEditingController(),
+                        //  controller: TextEditingController(),
                         decoration: const InputDecoration(
                           hintText: 'Email Address',
                         ),
@@ -67,7 +69,7 @@ class _CreateState extends State<Create> {
                       TextField(
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
-                       // controller: TextEditingController(),
+                        // controller: TextEditingController(),
                         decoration: const InputDecoration(
                           hintText: 'Password',
                         ),
@@ -78,7 +80,7 @@ class _CreateState extends State<Create> {
                       SizedBox(height: hei * 0.05),
                       TextField(
                         obscureText: true,
-                       // controller: TextEditingController(),
+                        // controller: TextEditingController(),
                         decoration: const InputDecoration(
                           hintText: 'Confirm Password',
                         ),
@@ -96,17 +98,26 @@ class _CreateState extends State<Create> {
                       email: email,
                       password: password,
                     );
+                    if (newUser != null) {
+                      FirebaseFirestore.instance
+                          .collection('User')
+                          .doc(newUser.user?.uid)
+                          .set({
+                        'Name': name,
+                        'Email':email,
+                        'Password':password,
+                      });
+                    }
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                         builder: (context) => Home(),
                       ),
-                          (route) => false,
+                      (route) => false,
                     );
                   } catch (e) {
                     print('Error during sign-in:');
                     print(e);
                   }
-
                 },
                 child: const Text(
                   'Sign Up',

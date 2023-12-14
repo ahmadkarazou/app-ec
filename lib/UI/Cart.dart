@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../modal/button.dart';
+import '../widget/button.dart';
 import 'Checkout.dart';
 
 class Cart extends StatefulWidget {
@@ -158,8 +158,6 @@ class _CartPrudacteState extends State<CartPrudacte> {
     });
   }
 
-  bool isFavourite = false;
-
   @override
   Widget build(BuildContext context) {
     double hei = MediaQuery.of(context).size.height;
@@ -170,42 +168,27 @@ class _CartPrudacteState extends State<CartPrudacte> {
       width: wid,
       height: hei * 0.2,
       decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+              color:Colors.black54,
+              spreadRadius:.1,
+              blurRadius: 5
+          )
+        ],
         borderRadius: BorderRadius.all(Radius.circular(20)),
         color: Colors.grey[200],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
-                  'assets/images/images.jpg',
-                  width: wid * 0.31,
-                  height: hei * 0.31,
-                ),
-              ),
-              Positioned(
-                left: 5,
-                top: 5,
-                child: CircleAvatar(
-                  backgroundColor: Colors.white,
-                  child: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isFavourite = !isFavourite;
-                        print(isFavourite);
-                      });
-                    },
-                    icon: Icon(
-                      Icons.favorite,
-                      color: (isFavourite) ? Colors.red : Colors.grey,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.asset(
+              'assets/images/images.jpg',
+              width: wid * 0.31,
+              height: hei * 0.31,
+            ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

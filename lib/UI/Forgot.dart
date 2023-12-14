@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/NewPassword.dart';
 
-import '../modal/button.dart';
+import '../widget/button.dart';
 
 
 
