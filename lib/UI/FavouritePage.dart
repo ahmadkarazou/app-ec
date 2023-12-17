@@ -31,33 +31,33 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
           body: GridView.count(
             crossAxisCount: 2,
-            childAspectRatio: hei * 0.00085,
+            childAspectRatio: hei * 0.0009,
             children: [
               Container(
                 height: hei,
                 child: PrudacteWidget(
                     onTap: (){},
                     isFavourite: true,
-                    imageUrl: 'assets/images/images.jpg',
+                    imageUrl: 'assets/images/art-home2.jpeg',
                     title: 'Luxury soap',
                     Pries: 29.43),
               ),
               PrudacteWidget(
                   onTap: (){},
                   isFavourite: true,
-                  imageUrl: 'assets/images/images.jpg',
+                  imageUrl: 'assets/images/art-home1.jpeg',
                   title: 'Luxury soap',
                   Pries: 29.43),
               PrudacteWidget(
                   onTap: (){},
                   isFavourite: true,
-                  imageUrl: 'assets/images/images.jpg',
+                  imageUrl: 'assets/images/art-home.jpeg',
                   title: 'Luxury soap',
                   Pries: 29.43),
               PrudacteWidget(
                   onTap: (){},
                   isFavourite: true,
-                  imageUrl: 'assets/images/images.jpg',
+                  imageUrl: 'assets/images/lnsider_monkey.jpeg',
                   title: 'Luxury soap',
                   Pries: 29.43),
               PrudacteWidget(
@@ -152,31 +152,16 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
         children: [
           TextButton(
             onPressed: widget.onTap,
-            child: Stack(
-              children: [
+            child:
                 ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.asset(
                     widget.imageUrl,
+                    height: hei*0.15,
                   ),
                 ),
-                Positioned(
-                  left: 5,
-                  top: 5,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite,
-                        color: (widget.isFavourite) ? Colors.red : Colors.grey,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
             ),
-          ),
+
           SizedBox(height: hei * 0.01),
           Text(
             widget.title,
@@ -184,10 +169,26 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
                 fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: hei * 0.01),
-          Text(
-            '\$${widget.Pries}',
-            style: TextStyle(
-                color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                '\$${widget.Pries}',
+                style: TextStyle(
+                    color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 15),
+
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.favorite,
+                    color: (widget.isFavourite) ? Colors.red : Colors.grey,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

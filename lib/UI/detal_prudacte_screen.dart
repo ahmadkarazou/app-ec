@@ -78,7 +78,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                         topLeft: Radius.circular(20))),
                 width: wid,
                 height: hei * 0.57,
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.only(left: 20,right: 20,top: 20),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     // crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,8 +96,9 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                           Text(
                             '\$ 19.99',
                             style: TextStyle(
-                              fontSize: 20,
-                            ),
+                                fontSize: 20,
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
@@ -110,7 +111,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                           Text('4.5'),
                         ],
                       ),
-                      SizedBox(height: hei * 0.02),
+                      SizedBox(height: hei * 0.005),
                       Text(
                         'Components',
                         style: TextStyle(
@@ -119,10 +120,21 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                         ),
                       ),
                       SizedBox(height: hei * 0.02),
-                      Text(
-                        ''' Quality: 375g (each 125g);Product form: solid Keeps your skin moisturized Area of use: body and faceUsage: Lather and apply generously to the skin,then massage gently.For best results, apply a rich lather and leave for 2 minutes before washing Target group: men and women. Skin type: All skin types''',
-                        style: TextStyle(
-                          fontSize: 16,
+                      Container(
+                        height: hei*0.25,
+                        child: SingleChildScrollView(
+                          child: Text(
+                            '''Quality: 375g (each 125g);
+Product form: solid Keeps your skin moisturized 
+Area of use: body and face
+Usage: Lather and apply generously to the skin,then massage gently.
+For best results, apply a rich lather and leave for 2 minutes before washing 
+Target group: men and women. 
+Skin type: All skin types''',
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
                         ),
                       ),
                       SizedBox(height: hei * 0.05),

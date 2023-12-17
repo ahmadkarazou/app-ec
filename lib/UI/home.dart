@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:untitled4/UI/Categore_screen.dart';
 import 'package:untitled4/UI/Profile.dart';
 import 'package:untitled4/UI/detal_prudacte_screen.dart';
@@ -88,7 +89,9 @@ class _HomeState extends State<Home> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
-          selectedItemColor: Colors.black,
+          // unselectedItemColor: Colors.blueGrey,
+          iconSize: 25,
+          selectedItemColor: Color.fromRGBO(238, 114, 100,1),
           currentIndex: widget.selectedindex!,
           onTap: (index) {
             setState(() {
@@ -137,7 +140,7 @@ class HomePage extends StatelessWidget {
                   color: Colors.black12,
                   image: DecorationImage(
                       image: AssetImage(
-                          'assets/images/e5e02c364e5cf881eb5ba87273800659_1.jpg'),
+                          'assets/images/fresh.jpeg'),
                       opacity: .70,
                       fit: BoxFit.fitWidth),
                   borderRadius: BorderRadius.all(
@@ -186,21 +189,21 @@ class HomePage extends StatelessWidget {
                       builder: (context) => CategoreScreen(),
                     ));
                   },
-                  name: 'Hand med',
-                  image:
-                      'assets/images/white-hand-pen-icon-md-removebg-preview.png'),
+                  name: 'Hand made',
+                  SVGIcon:
+                      'assets/icons/ceramic-pottery-svgrepo-com.svg'),
               SectionsImage(
                   onTap: () {},
                   name: 'decoration',
-                  image: 'assets/images/download-removebg-preview.png'),
+                  SVGIcon: 'assets/icons/decoration-svgrepo-com.svg'),
               SectionsImage(
                   onTap: () {},
                   name: 'Food',
-                  image: 'assets/images/94ee2fda4931c26b3c55ed23d28e885e.png'),
+                  SVGIcon: 'assets/icons/food-svgrepo-com.svg'),
               SectionsImage(
                   onTap: () {},
                   name: 'candies',
-                  image: 'assets/images/download__1_-removebg-preview.png'),
+                  SVGIcon: 'assets/icons/candies-candy-svgrepo-com.svg'),
             ],
           ),
           Row(
@@ -235,13 +238,13 @@ class HomePage extends StatelessWidget {
                 PrudacteWidget(
                     onTap: () {},
                     isFavourite: false,
-                    imageUrl: 'assets/images/images.jpg',
+                    imageUrl: 'assets/images/8f55c0d7a5655b7851b32dcdfe5b1658.jpg',
                     title: 'Luxury soap',
                     Pries: 29.43),
                 PrudacteWidget(
                     onTap: () {},
                     isFavourite: false,
-                    imageUrl: 'assets/images/images.jpg',
+                    imageUrl: 'assets/images/art-home1.jpeg',
                     title: 'Luxury soap',
                     Pries: 29.43),
               ],
@@ -269,19 +272,19 @@ class HomePage extends StatelessWidget {
                 PrudacteWidget(
                     onTap: () {},
                     isFavourite: true,
-                    imageUrl: 'assets/images/images.jpg',
+                    imageUrl: 'assets/images/art-home.jpeg',
                     title: 'Luxury soap',
                     Pries: 29.43),
                 PrudacteWidget(
                     onTap: () {},
                     isFavourite: true,
-                    imageUrl: 'assets/images/images.jpg',
+                    imageUrl: 'assets/images/art-home2.jpeg',
                     title: 'Luxury soap',
                     Pries: 29.43),
                 PrudacteWidget(
                     onTap: () {},
                     isFavourite: true,
-                    imageUrl: 'assets/images/images.jpg',
+                    imageUrl: 'assets/images/lnsider_monkey.jpeg',
                     title: 'Luxury soap',
                     Pries: 29.43),
               ],
@@ -334,16 +337,20 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
           //border: Border.all(color: Colors.grey)
     ),
       height: hei * 0.29,
-      width: wid * 0.4,
+      width: wid * 0.38,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextButton(
-            onPressed: widget.onTap,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.asset(
-                widget.imageUrl,
+          Container(
+            margin: EdgeInsets.only(right: 10,left: 10,top: 10),
+            child: GestureDetector(
+              onTap: widget.onTap,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  widget.imageUrl,
+                  height: hei*0.16,
+                ),
               ),
             ),
           ),
@@ -389,12 +396,12 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
 class SectionsImage extends StatelessWidget {
   SectionsImage({
     required this.name,
-    required this.image,
+    required this.SVGIcon,
     super.key,
     required this.onTap,
   });
 
-  final String image;
+  final String SVGIcon;
   final String name;
   final VoidCallback onTap;
 
@@ -423,7 +430,7 @@ class SectionsImage extends StatelessWidget {
               ),
             ),
             padding: const EdgeInsets.all(15),
-            child: Image.asset(image, fit: BoxFit.fitWidth),
+            child: SvgPicture.asset(SVGIcon, fit: BoxFit.fitWidth),
           ),
         ),
         Text(name),

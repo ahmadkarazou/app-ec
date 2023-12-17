@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled4/UI/checkout_anemashen.dart';
 
 import '../widget/button.dart';
 import 'Checkout.dart';
@@ -26,14 +27,14 @@ class _CartState extends State<Cart> {
               width: wid,
               child: ListView(
                 children: [
-                  CartPrudacte(),
-                  CartPrudacte(),
-                  CartPrudacte(),
+                  CartPrudacte(urlImage:'assets/images/images.jpg' ,name: 'Natural rose soap',pries: '19.99',),
+                  CartPrudacte(urlImage:'assets/images/wonder_forest.jpeg' ,name: 'Natural rose soap',pries: '19.99',),
+                  CartPrudacte(urlImage:'assets/images/art-home2.jpeg' ,name: 'Natural rose soap',pries: '19.99',),
                 ],
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 20,top: 30,right: 20),
+              padding: EdgeInsets.only(left: 20, top: 30, right: 20),
               height: hei * 0.3,
               width: wid,
               decoration: BoxDecoration(
@@ -55,7 +56,6 @@ class _CartState extends State<Cart> {
                             fontSize: 16,
                             color: Colors.grey),
                       ),
-
                       Text(
                         '\$ 59.97',
                         style: TextStyle(
@@ -65,9 +65,7 @@ class _CartState extends State<Cart> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: hei*0.015
-                  ),
+                  SizedBox(height: hei * 0.015),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -78,7 +76,6 @@ class _CartState extends State<Cart> {
                             fontSize: 16,
                             color: Colors.grey),
                       ),
-
                       Text(
                         'Free Shipment',
                         style: TextStyle(
@@ -89,7 +86,7 @@ class _CartState extends State<Cart> {
                     ],
                   ),
                   SizedBox(
-                    height: hei*0.02,
+                    height: hei * 0.02,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,7 +98,6 @@ class _CartState extends State<Cart> {
                           fontSize: 16,
                         ),
                       ),
-
                       Text(
                         '\$ 59.97',
                         style: TextStyle(
@@ -109,14 +105,14 @@ class _CartState extends State<Cart> {
                       ),
                     ],
                   ),
-                  SizedBox(height: hei*0.05),
+                  SizedBox(height: hei * 0.05),
                   ElevatedButton(
                     style: buttonPrimary,
                     onPressed: () {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => Checkout()));
+                              builder: (context) => CheckoutScreen()));
                     },
                     child: Text(
                       'Proceed to Checkout',
@@ -137,7 +133,15 @@ class _CartState extends State<Cart> {
 }
 
 class CartPrudacte extends StatefulWidget {
-  const CartPrudacte({super.key});
+  const CartPrudacte(
+      {super.key,
+      required this.urlImage,
+      required this.name,
+      required this.pries});
+
+  final String urlImage;
+  final String name;
+  final String pries;
 
   @override
   State<CartPrudacte> createState() => _CartPrudacteState();
@@ -169,11 +173,7 @@ class _CartPrudacteState extends State<CartPrudacte> {
       height: hei * 0.2,
       decoration: BoxDecoration(
         boxShadow: [
-          BoxShadow(
-              color:Colors.black54,
-              spreadRadius:.1,
-              blurRadius: 5
-          )
+          BoxShadow(color: Colors.black54, spreadRadius: .1, blurRadius: 5)
         ],
         borderRadius: BorderRadius.all(Radius.circular(20)),
         color: Colors.grey[200],
@@ -181,11 +181,11 @@ class _CartPrudacteState extends State<CartPrudacte> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
             child: Image.asset(
-              'assets/images/images.jpg',
+              widget.urlImage,
+              fit:BoxFit.fitWidth ,
               width: wid * 0.31,
               height: hei * 0.31,
             ),
@@ -195,11 +195,11 @@ class _CartPrudacteState extends State<CartPrudacte> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'Natural rose soap',
+               widget.name,
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
               ),
               Text(
-                '\$ 19.99',
+                '\$ ${widget.pries}',
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
               ),
               Row(

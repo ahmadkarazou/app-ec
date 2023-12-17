@@ -16,12 +16,10 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   final _auth = FirebaseAuth.instance;
-@override
-  void initState() {
-  FirebaseFirestore.instance
-      .collection('User')
-      .doc().get();
 
+  @override
+  void initState() {
+    FirebaseFirestore.instance.collection('User').doc().get();
   }
 
   @override
@@ -96,28 +94,35 @@ class _ProfileState extends State<Profile> {
                       wid: wid,
                       title: 'My Wishlist',
                       icon: Icons.favorite,
+                      iconColor: Colors.red,
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => FavoriteScreen(),
                         ));
                       },
                     ),
+                    SizedBox(height: hei * 0.01),
                     Divider(height: 1, color: Colors.black12),
+                    SizedBox(height: hei * 0.01),
                     ButtonNut(
                       wid: wid,
                       title: 'Rate This App',
                       icon: Icons.star,
+                      iconColor: Colors.amber,
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => RateScreen(),
                         ));
                       },
                     ),
+                    SizedBox(height: hei * 0.01),
                     Divider(height: 1, color: Colors.black12),
+                    SizedBox(height: hei * 0.01),
                     ButtonNut(
                         wid: wid,
                         title: 'Log Out',
                         icon: Icons.exit_to_app,
+                        iconColor: Colors.green,
                         onTap: () {
                           _auth.signOut();
 
@@ -146,12 +151,14 @@ class ButtonNut extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.onTap,
+    required this.iconColor,
   });
 
   final double wid;
   final IconData icon;
   final String title;
   final VoidCallback onTap;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +168,7 @@ class ButtonNut extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: Color(0xff74918B),
+            color: iconColor,
             size: 30,
           ),
           SizedBox(width: wid * 0.05),

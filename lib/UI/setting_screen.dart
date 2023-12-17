@@ -34,6 +34,8 @@ class _SettingScreenState extends State<SettingScreen> {
               onTap: () {},
               title: 'Language',
               icon: Icons.language,
+              backColor: Colors.green.shade100,
+              iconColor: Colors.green,
             ),
             SizedBox(height: hei * 0.02),
             Divider(height: 2, color: Colors.black12),
@@ -43,6 +45,8 @@ class _SettingScreenState extends State<SettingScreen> {
               onTap: () {},
               title: 'Notification',
               icon: Icons.notifications_outlined,
+              backColor: Colors.purple.shade100,
+              iconColor: Colors.purple,
             ),
             SizedBox(height: hei * 0.02),
             Divider(height: 2, color: Colors.black12),
@@ -52,6 +56,8 @@ class _SettingScreenState extends State<SettingScreen> {
               onTap: () {},
               title: 'Terms of Use',
               icon: Icons.speaker_notes_outlined,
+              backColor: Colors.blue.shade100,
+              iconColor: Colors.blue,
             ),
             SizedBox(height: hei * 0.02),
             Divider(height: 2, color: Colors.black12),
@@ -61,6 +67,8 @@ class _SettingScreenState extends State<SettingScreen> {
               onTap: () {},
               title: 'Pricavy Policy',
               icon: Icons.info_outlined,
+              backColor: Colors.red.shade100,
+              iconColor: Colors.red,
             ),
             SizedBox(height: hei * 0.02),
             Divider(height: 2, color: Colors.black12),
@@ -78,12 +86,16 @@ class ButtonWidget extends StatelessWidget {
     required this.onTap,
     required this.icon,
     required this.title,
+    required this.backColor,
+    required this.iconColor,
   });
 
   final double wid;
   final VoidCallback onTap;
   final IconData icon;
   final String title;
+  final Color backColor;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -94,10 +106,14 @@ class ButtonWidget extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(
-                icon,
-                size: 40,
-                color: Colors.black,
+              CircleAvatar(
+                minRadius: 30,
+                backgroundColor: backColor,
+                child: Icon(
+                  icon,
+                  size: 40,
+                  color: iconColor,
+                ),
               ),
               SizedBox(width: wid * 0.05),
               Text(
@@ -109,9 +125,13 @@ class ButtonWidget extends StatelessWidget {
               )
             ],
           ),
-          Icon(
-            Icons.arrow_forward_ios_sharp,
-            color: Colors.black,
+          Container(
+            padding: EdgeInsets.all(5),
+            color: Colors.grey.shade200,
+            child: Icon(
+              Icons.arrow_forward_ios_sharp,
+              color: Colors.black,
+            ),
           )
         ],
       ),
