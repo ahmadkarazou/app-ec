@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:http/http.dart' as http;
 import 'package:untitled4/UI/Categore_screen.dart';
 import 'package:untitled4/UI/Profile.dart';
 import 'package:untitled4/UI/detal_prudacte_screen.dart';
 import 'package:untitled4/UI/notification_screen.dart';
 import 'package:untitled4/UI/search_screen.dart';
+import 'package:untitled4/model/food_api_model.dart';
 import 'package:untitled4/widget/drawer_app.dart';
 
 import 'Cart.dart';
@@ -31,6 +35,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+
     getCurrentUser();
     super.initState();
   }
@@ -91,7 +96,7 @@ class _HomeState extends State<Home> {
         bottomNavigationBar: BottomNavigationBar(
           // unselectedItemColor: Colors.blueGrey,
           iconSize: 25,
-          selectedItemColor: Color.fromRGBO(238, 114, 100,1),
+          selectedItemColor: Color.fromRGBO(238, 114, 100, 1),
           currentIndex: widget.selectedindex!,
           onTap: (index) {
             setState(() {
@@ -112,15 +117,53 @@ class _HomeState extends State<Home> {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({
     super.key,
   });
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+
+
+
+class _HomePageState extends State<HomePage> {
+  Future fetchProducts() async {
+    final http.Response response =
+    await http.get(Uri.parse('https://fakestoreapi.com/products'));
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body);
+print("DATA :$data");
+      for (var element in data) {
+        item.add(
+          Items(
+            id: element['id'],
+            isFavo: false,
+            title: element['title'],
+            price: element['price'].toString(),
+            description: element['description'],
+            category: element['category'],
+            image: element['image'],
+          ),
+        );
+      }
+    }
+  }
+  List<Items> item = [];
+@override
+  void initState() {
+  fetchProducts();
+  setState(() {
+
+  });
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     double hei = MediaQuery.of(context).size.height;
-
+print(item);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: SingleChildScrollView(
@@ -132,15 +175,11 @@ class HomePage extends StatelessWidget {
                 decoration: const BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                        color:Colors.black54,
-                        spreadRadius:.1,
-                        blurRadius: 5
-                    )
+                        color: Colors.black54, spreadRadius: .1, blurRadius: 5)
                   ],
                   color: Colors.black12,
                   image: DecorationImage(
-                      image: AssetImage(
-                          'assets/images/fresh.jpeg'),
+                      image: AssetImage('assets/images/fresh.jpeg'),
                       opacity: .70,
                       fit: BoxFit.fitWidth),
                   borderRadius: BorderRadius.all(
@@ -156,7 +195,7 @@ class HomePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: ()=>fetchProducts(),
                       child: const Text(
                         'Fresh \nproducts',
                         style: TextStyle(
@@ -190,10 +229,13 @@ class HomePage extends StatelessWidget {
                     ));
                   },
                   name: 'Hand made',
-                  SVGIcon:
-                      'assets/icons/ceramic-pottery-svgrepo-com.svg'),
+                  SVGIcon: 'assets/icons/ceramic-pottery-svgrepo-com.svg'),
               SectionsImage(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => CategoreScreen(),
+                    ));
+                  },
                   name: 'decoration',
                   SVGIcon: 'assets/icons/decoration-svgrepo-com.svg'),
               SectionsImage(
@@ -221,33 +263,21 @@ class HomePage extends StatelessWidget {
                   ))
             ],
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                PrudacteWidget(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => DetalPrudacteScreen(),
-                      ));
-                    },
-                    isFavourite: false,
-                    imageUrl: 'assets/images/images.jpg',
-                    title: 'Luxury soap',
-                    Pries: 29.43),
-                PrudacteWidget(
+          SizedBox(
+            height: hei*0.31,
+            width: double.infinity,
+            child: ListView.builder(
+             scrollDirection: Axis.horizontal,
+              itemCount: item.length,
+              itemBuilder: (context, index) {
+                return
+                  PrudacteWidget(
                     onTap: () {},
-                    isFavourite: false,
-                    imageUrl: 'assets/images/8f55c0d7a5655b7851b32dcdfe5b1658.jpg',
-                    title: 'Luxury soap',
-                    Pries: 29.43),
-                PrudacteWidget(
-                    onTap: () {},
-                    isFavourite: false,
-                    imageUrl: 'assets/images/art-home1.jpeg',
-                    title: 'Luxury soap',
-                    Pries: 29.43),
-              ],
+                    isFavourite:  item[index].isFavo!,
+                    imageUrl: item[index].image,
+                    title: item[index].title,
+                    Pries: 29.43);
+              },
             ),
           ),
           Row(
@@ -322,51 +352,49 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
     double hei = MediaQuery.of(context).size.height;
     double wid = MediaQuery.of(context).size.width;
     return Container(
-      margin: const EdgeInsets.all( 10),
-
+      margin: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                color:Colors.black54,
-                spreadRadius:.1,
-                blurRadius: 5
-            )
-          ],
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          //border: Border.all(color: Colors.grey)
-    ),
+        boxShadow: [
+          BoxShadow(color: Colors.black54, spreadRadius: .1, blurRadius: 5)
+        ],
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        //border: Border.all(color: Colors.grey)
+      ),
       height: hei * 0.29,
       width: wid * 0.38,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(right: 10,left: 10,top: 10),
+            margin: EdgeInsets.only(right: 10, left: 10, top: 10),
             child: GestureDetector(
               onTap: widget.onTap,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: Image.asset(
+                child: Image.network(
                   widget.imageUrl,
-                  height: hei*0.16,
+                  height: hei * 0.16,
                 ),
               ),
             ),
           ),
           SizedBox(height: hei * 0.01),
           Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
             child: Column(
               children: [
                 Text(
                   widget.title,
+                  maxLines: 1,
                   style: TextStyle(
+
                       fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.bold),
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       '\$${widget.Pries}',
@@ -420,10 +448,7 @@ class SectionsImage extends StatelessWidget {
               color: Colors.grey.shade100,
               boxShadow: [
                 BoxShadow(
-                    color:Colors.black54,
-                    spreadRadius:.1,
-                    blurRadius: 5
-                )
+                    color: Colors.black54, spreadRadius: .1, blurRadius: 5)
               ],
               borderRadius: const BorderRadius.all(
                 Radius.circular(16),
