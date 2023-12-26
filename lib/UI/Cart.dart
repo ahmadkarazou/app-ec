@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/UI/checkout_anemashen.dart';
+import 'package:untitled4/model/cart_item.dart';
 
 import '../widget/button.dart';
 import 'Checkout.dart';
@@ -14,6 +15,8 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  CartItem Item = CartItem();
+
   @override
   Widget build(BuildContext context) {
     double hei = MediaQuery.of(context).size.height;
@@ -25,7 +28,26 @@ class _CartState extends State<Cart> {
             SizedBox(
               height: hei * 0.5,
               width: wid,
-              child: ListView(
+              child:
+              // ListView.builder(
+              //   scrollDirection: Axis.horizontal,
+              //   itemCount: Item.cartItems.length,
+              //   itemBuilder: (context, index) {
+              //     return CartPrudacte(
+              //       urlImage: Item.cartItems[index].,
+              //       name: Item.cartItems[index]['title'],
+              //       pries: Item.cartItems[index]['price'],
+              //     );
+              //     // PrudacteWidget(
+              //     // onTap: () {},
+              //     // isFavourite: items[index].isFavo!,
+              //     // imageUrl: items[index].image,
+              //     // title: items[index].title,
+              //     // Pries: items[index].price,
+              //     // );
+              //   },
+              // ),
+              ListView(
                 children: [
                   CartPrudacte(urlImage:'assets/images/images.jpg' ,name: 'Natural rose soap',pries: '19.99',),
                   CartPrudacte(urlImage:'assets/images/wonder_forest.jpeg' ,name: 'Natural rose soap',pries: '19.99',),
@@ -185,7 +207,7 @@ class _CartPrudacteState extends State<CartPrudacte> {
             borderRadius: BorderRadius.circular(20),
             child: Image.asset(
               widget.urlImage,
-              fit:BoxFit.fitWidth ,
+              fit: BoxFit.fitWidth,
               width: wid * 0.31,
               height: hei * 0.31,
             ),
@@ -195,7 +217,7 @@ class _CartPrudacteState extends State<CartPrudacte> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-               widget.name,
+                widget.name,
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
               ),
               Text(

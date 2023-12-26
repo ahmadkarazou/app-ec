@@ -35,7 +35,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-
     getCurrentUser();
     super.initState();
   }
@@ -126,16 +125,13 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-
-
-
 class _HomePageState extends State<HomePage> {
   Future fetchProducts() async {
     final http.Response response =
-    await http.get(Uri.parse('https://fakestoreapi.com/products'));
+        await http.get(Uri.parse('https://fakestoreapi.com/products'));
     if (response.statusCode == 200) {
       List data = jsonDecode(response.body);
-print("DATA :$data");
+      print("DATA :$data");
       for (var element in data) {
         item.add(
           Items(
@@ -150,20 +146,47 @@ print("DATA :$data");
         );
       }
     }
+    setState(() {});
   }
-  List<Items> item = [];
-@override
-  void initState() {
-  fetchProducts();
-  setState(() {
 
-  });
+  Future fetchMegaSale() async {
+    final http.Response response =
+        await http.get(Uri.parse('https://fakestoreapi.com/products'));
+    if (response.statusCode == 200) {
+      List data = jsonDecode(response.body);
+      print("DATA :$data");
+      for (var element in data) {
+        items.add(
+          Items(
+            id: element['id'],
+            isFavo: false,
+            title: element['title'],
+            price: element['price'].toString(),
+            description: element['description'],
+            category: element['category'],
+            image: element['image'],
+          ),
+        );
+      }
+    }
+    setState(() {});
+  }
+
+  List<Items> items = [];
+  List<Items> item = [];
+
+  @override
+  void initState() {
+    fetchProducts();
+    fetchMegaSale();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     double hei = MediaQuery.of(context).size.height;
-print(item);
+    print(item);
+    print(items);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: SingleChildScrollView(
@@ -195,7 +218,7 @@ print(item);
                   Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: TextButton(
-                      onPressed: ()=>fetchProducts(),
+                      onPressed: () => fetchProducts(),
                       child: const Text(
                         'Fresh \nproducts',
                         style: TextStyle(
@@ -264,19 +287,31 @@ print(item);
             ],
           ),
           SizedBox(
-            height: hei*0.31,
+            height: hei * 0.31,
             width: double.infinity,
             child: ListView.builder(
-             scrollDirection: Axis.horizontal,
+              scrollDirection: Axis.horizontal,
               itemCount: item.length,
               itemBuilder: (context, index) {
-                return
-                  PrudacteWidget(
-                    onTap: () {},
-                    isFavourite:  item[index].isFavo!,
-                    imageUrl: item[index].image,
-                    title: item[index].title,
-                    Pries: 29.43);
+                return PrudacteWidget(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => DetalPrudacteScreen(
+                        isFavourite: item[index].isFavo!,
+                        pries: item[index].price,
+                        imageUrl: item[index].image,
+                        name: item[index].title,
+                        components: item[index].description,
+                        id: item[index].id,
+                        category: item[index].category,
+                      ),
+                    ));
+                  },
+                  isFavourite: item[index].isFavo!,
+                  imageUrl: item[index].image,
+                  title: item[index].title,
+                  Pries: item[index].price,
+                );
               },
             ),
           ),
@@ -295,31 +330,48 @@ print(item);
                   ))
             ],
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                PrudacteWidget(
-                    onTap: () {},
-                    isFavourite: true,
-                    imageUrl: 'assets/images/art-home.jpeg',
-                    title: 'Luxury soap',
-                    Pries: 29.43),
-                PrudacteWidget(
-                    onTap: () {},
-                    isFavourite: true,
-                    imageUrl: 'assets/images/art-home2.jpeg',
-                    title: 'Luxury soap',
-                    Pries: 29.43),
-                PrudacteWidget(
-                    onTap: () {},
-                    isFavourite: true,
-                    imageUrl: 'assets/images/lnsider_monkey.jpeg',
-                    title: 'Luxury soap',
-                    Pries: 29.43),
-              ],
+          SizedBox(
+            height: hei * 0.31,
+            width: double.infinity,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: items.length,
+              itemBuilder: (context, index) {
+                return PrudacteWidget(
+                  onTap: () {},
+                  isFavourite: items[index].isFavo!,
+                  imageUrl: items[index].image,
+                  title: items[index].title,
+                  Pries: items[index].price,
+                );
+              },
             ),
-          )
+          ),
+          // SingleChildScrollView(
+          //   scrollDirection: Axis.horizontal,
+          //   child: Row(
+          //     children: [
+          //       PrudacteWidget(
+          //           onTap: () {},
+          //           isFavourite: true,
+          //           imageUrl: 'assets/images/art-home.jpeg',
+          //           title: 'Luxury soap',
+          //           Pries: 29.43),
+          //       PrudacteWidget(
+          //           onTap: () {},
+          //           isFavourite: true,
+          //           imageUrl: 'assets/images/art-home2.jpeg',
+          //           title: 'Luxury soap',
+          //           Pries: 29.43),
+          //       PrudacteWidget(
+          //           onTap: () {},
+          //           isFavourite: true,
+          //           imageUrl: 'assets/images/lnsider_monkey.jpeg',
+          //           title: 'Luxury soap',
+          //           Pries: 29.43),
+          //     ],
+          //   ),
+          // )
         ],
       )),
     );
@@ -338,7 +390,7 @@ class PrudacteWidget extends StatefulWidget {
 
   final String imageUrl;
   final String title;
-  final double Pries;
+  final String Pries;
   final bool isFavourite;
   final VoidCallback onTap;
 
@@ -388,7 +440,6 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
                   widget.title,
                   maxLines: 1,
                   style: TextStyle(
-
                       fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.bold),

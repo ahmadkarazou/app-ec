@@ -1,29 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:untitled4/model/cart_item.dart';
 
 import '../widget/button.dart';
 
 class DetalPrudacteScreen extends StatefulWidget {
-  const DetalPrudacteScreen({super.key});
+  const DetalPrudacteScreen({super.key,
+    required this.name,
+    required this.pries,
+    required this.components,
+    required this.imageUrl,
+    required this.isFavourite, required this.id, required this.category});
+
+  final String name;
+  final String pries;
+  final String components;
+  final String imageUrl;
+  final bool isFavourite;
+  final int id;
+  final String category;
 
   @override
   State<DetalPrudacteScreen> createState() => _DetalPrudacteScreenState();
 }
 
-bool isFavourite = true;
-
 class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
+  CartItem cart = CartItem();
+
   @override
   Widget build(BuildContext context) {
-    double hei = MediaQuery.of(context).size.height;
-    double wid = MediaQuery.of(context).size.width;
-
+    double hei = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double wid = MediaQuery
+        .of(context)
+        .size
+        .width;
+    bool isFavourit = widget.isFavourite;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              'Luxury Soap',
+              widget.name,
+              maxLines: 1,
               style: TextStyle(
+
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
@@ -34,10 +56,10 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
               Stack(
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Colors.black,
                       image: DecorationImage(
-                          image: AssetImage('assets/images/images.jpg'),
+                          image: NetworkImage(widget.imageUrl),
                           fit: BoxFit.fitWidth),
                       borderRadius: BorderRadius.all(
                         Radius.circular(30),
@@ -56,12 +78,12 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                       child: IconButton(
                         onPressed: () {
                           setState(() {
-                            isFavourite = !isFavourite;
+                            isFavourit = !isFavourit;
                           });
                         },
                         icon: Icon(
                           Icons.favorite,
-                          color: (isFavourite) ? Colors.red : Colors.grey,
+                          color: (isFavourit) ? Colors.red : Colors.grey,
                           size: 30,
                         ),
                       ),
@@ -78,7 +100,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                         topLeft: Radius.circular(20))),
                 width: wid,
                 height: hei * 0.57,
-                padding: EdgeInsets.only(left: 20,right: 20,top: 20),
+                padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     // crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,15 +108,19 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Natural rose soap',
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                          SizedBox(
+                            width: wid * 0.6,
+                            child: Text(
+                              widget.name,
+                              maxLines: 1,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                           Text(
-                            '\$ 19.99',
+                            '\$ ${widget.pries}',
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.blue,
@@ -121,16 +147,10 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                       ),
                       SizedBox(height: hei * 0.02),
                       Container(
-                        height: hei*0.25,
+                        height: hei * 0.25,
                         child: SingleChildScrollView(
                           child: Text(
-                            '''Quality: 375g (each 125g);
-Product form: solid Keeps your skin moisturized 
-Area of use: body and face
-Usage: Lather and apply generously to the skin,then massage gently.
-For best results, apply a rich lather and leave for 2 minutes before washing 
-Target group: men and women. 
-Skin type: All skin types''',
+                            widget.components,
                             style: TextStyle(
                               fontSize: 14,
                             ),
@@ -139,11 +159,15 @@ Skin type: All skin types''',
                       ),
                       SizedBox(height: hei * 0.05),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          cart.addItem(widget.id, widget.name, widget.pries,
+                              widget.components, widget.category, widget.imageUrl);
+                          print(cart.cartItems);
+                        },
                         style: buttonPrimary,
                         child: const Text('Add To Cart',
                             style:
-                                TextStyle(color: Colors.white, fontSize: 20)),
+                            TextStyle(color: Colors.white, fontSize: 20)),
                       ),
                     ]),
               ),
