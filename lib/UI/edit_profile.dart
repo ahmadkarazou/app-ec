@@ -1,8 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import '../widget/button.dart';
 
-class EditProfilePage extends StatelessWidget {
-  const EditProfilePage({super.key});
+class EditProfilePage extends StatefulWidget {
+  EditProfilePage({super.key});
+
+  @override
+  State<EditProfilePage> createState() => _EditProfilePageState();
+}
+
+class _EditProfilePageState extends State<EditProfilePage> {
+  File? image;
+  final imagePicker = ImagePicker();
+
+  uploadImage() async {
+    var picImage = await imagePicker.pickImage(source: ImageSource.camera);
+    if (picImage != null) {
+      image = File(picImage!.path);
+    } else {}
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +55,18 @@ class EditProfilePage extends StatelessWidget {
               SizedBox(height: hei * 0.05),
               Stack(
                 children: [
-                  const CircleAvatar(
+                  CircleAvatar(
+                    backgroundColor: Colors.white,
                     radius: 70.0,
-                    backgroundImage: AssetImage(
-                        'assets/images/06361988-ab1d-48cb-bdc0-8fb7b6b25a04.jpg'),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(70),
+                      child: (image == null)
+                          ? Image(
+                              image: AssetImage(
+                                  'assets/images/06361988-ab1d-48cb-bdc0-8fb7b6b25a04.jpg'),
+                            )
+                          : Image.file(image!),
+                    ),
                   ),
                   Positioned(
                     bottom: .1,
@@ -47,13 +74,15 @@ class EditProfilePage extends StatelessWidget {
                     child: CircleAvatar(
                       backgroundColor: Color(0xff74918B),
                       child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.camera_alt_outlined,size: 18,)),
+                          onPressed: uploadImage,
+                          icon: Icon(
+                            Icons.camera_alt_outlined,
+                            size: 18,
+                          )),
                     ),
                   )
                 ],
               ),
-
               Padding(
                 padding: EdgeInsets.all(25),
                 child: Column(

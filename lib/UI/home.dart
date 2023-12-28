@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
               },
               icon: const Icon(
                 Icons.search,
-                size: 35,
+                size: 25,
               ),
             ),
             IconButton(
@@ -87,7 +87,7 @@ class _HomeState extends State<Home> {
               },
               icon: const Icon(
                 Icons.notifications_outlined,
-                size: 35,
+                size: 25,
               ),
             ),
           ],
