@@ -65,7 +65,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               image: AssetImage(
                                   'assets/images/06361988-ab1d-48cb-bdc0-8fb7b6b25a04.jpg'),
                             )
-                          : Image.file(image!),
+                          : Image.file(image!,width:double.infinity,fit: BoxFit.fitWidth,),
                     ),
                   ),
                   Positioned(

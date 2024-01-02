@@ -26,41 +26,57 @@ class _CartState extends State<Cart> {
         child: Column(
           children: [
             SizedBox(
-              height: hei * 0.5,
+              height: hei * 0.56,
               width: wid,
               child:
-              // ListView.builder(
-              //   scrollDirection: Axis.horizontal,
-              //   itemCount: Item.cartItems.length,
-              //   itemBuilder: (context, index) {
-              //     return CartPrudacte(
-              //       urlImage: Item.cartItems[index].,
-              //       name: Item.cartItems[index]['title'],
-              //       pries: Item.cartItems[index]['price'],
-              //     );
-              //     // PrudacteWidget(
-              //     // onTap: () {},
-              //     // isFavourite: items[index].isFavo!,
-              //     // imageUrl: items[index].image,
-              //     // title: items[index].title,
-              //     // Pries: items[index].price,
-              //     // );
-              //   },
-              // ),
-              ListView(
+                  // ListView.builder(
+                  //   scrollDirection: Axis.horizontal,
+                  //   itemCount: Item.cartItems.length,
+                  //   itemBuilder: (context, index) {
+                  //     return CartPrudacte(
+                  //       urlImage: Item.cartItems[index].,
+                  //       name: Item.cartItems[index]['title'],
+                  //       pries: Item.cartItems[index]['price'],
+                  //     );
+                  //     // PrudacteWidget(
+                  //     // onTap: () {},
+                  //     // isFavourite: items[index].isFavo!,
+                  //     // imageUrl: items[index].image,
+                  //     // title: items[index].title,
+                  //     // Pries: items[index].price,
+                  //     // );
+                  //   },
+                  // ),
+                  ListView(
                 children: [
-                  CartPrudacte(urlImage:'assets/images/images.jpg' ,name: 'Natural rose soap',pries: '19.99',),
-                  CartPrudacte(urlImage:'assets/images/wonder_forest.jpeg' ,name: 'Natural rose soap',pries: '19.99',),
-                  CartPrudacte(urlImage:'assets/images/art-home2.jpeg' ,name: 'Natural rose soap',pries: '19.99',),
+                  CartPrudacte(
+                    urlImage: 'assets/images/images.jpg',
+                    name: 'Natural rose soap',
+                    pries: '19.99',
+                  ),
+                  CartPrudacte(
+                    urlImage: 'assets/images/wonder_forest.jpeg',
+                    name: 'Natural rose soap',
+                    pries: '19.99',
+                  ),
+                  CartPrudacte(
+                    urlImage: 'assets/images/art-home2.jpeg',
+                    name: 'Natural rose soap',
+                    pries: '19.99',
+                  ),
                 ],
               ),
             ),
             Container(
               padding: EdgeInsets.only(left: 20, top: 30, right: 20),
-              height: hei * 0.3,
+              height: hei * 0.25,
               width: wid,
               decoration: BoxDecoration(
-                color: Colors.grey[300],
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black54, spreadRadius: .1, blurRadius: 5)
+                ],
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
                   topRight: Radius.circular(30),
@@ -76,18 +92,18 @@ class _CartState extends State<Cart> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.grey),
+                            color: Colors.black54),
                       ),
                       Text(
                         '\$ 59.97',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.grey),
+                            color: Colors.black54),
                       ),
                     ],
                   ),
-                  SizedBox(height: hei * 0.015),
+                  SizedBox(height: hei * 0.01),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -96,20 +112,18 @@ class _CartState extends State<Cart> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.grey),
+                            color: Colors.black54),
                       ),
                       Text(
                         'Free Shipment',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
-                            color: Colors.grey),
+                            color: Colors.black54),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: hei * 0.02,
-                  ),
+                  SizedBox(height: hei * 0.02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -127,7 +141,7 @@ class _CartState extends State<Cart> {
                       ),
                     ],
                   ),
-                  SizedBox(height: hei * 0.05),
+                  SizedBox(height: hei * 0.02),
                   ElevatedButton(
                     style: buttonPrimary,
                     onPressed: () {
@@ -198,7 +212,7 @@ class _CartPrudacteState extends State<CartPrudacte> {
           BoxShadow(color: Colors.black54, spreadRadius: .1, blurRadius: 5)
         ],
         borderRadius: BorderRadius.all(Radius.circular(20)),
-        color: Colors.grey[200],
+        color: Colors.white,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -230,8 +244,15 @@ class _CartPrudacteState extends State<CartPrudacte> {
                     height: hei * 0.05,
                     width: wid * 0.3,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        border: Border.all(color: Colors.black54)),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black54,
+                            spreadRadius: .1,
+                            blurRadius: 5)
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                      color: Colors.white,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -256,8 +277,14 @@ class _CartPrudacteState extends State<CartPrudacte> {
                       height: hei * 0.05,
                       width: wid * 0.12,
                       decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black54,
+                                spreadRadius: .1,
+                                blurRadius: 5)
+                          ],
                           borderRadius: BorderRadius.all(Radius.circular(20)),
-                          border: Border.all(color: Colors.black54)),
+                          color: Colors.white),
                       child: IconButton(
                         onPressed: () {},
                         icon: Icon(
