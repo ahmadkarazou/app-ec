@@ -26,7 +26,7 @@ class _CartState extends State<Cart> {
         child: Column(
           children: [
             SizedBox(
-              height: hei * 0.56,
+              height: hei * 0.55,
               width: wid,
               child:
                   // ListView.builder(
