@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled4/UI/FavouritePage.dart';
 import 'package:untitled4/UI/LogIn.dart';
 import 'package:untitled4/UI/rate_screen.dart';
@@ -20,14 +21,29 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     FirebaseFirestore.instance.collection('User').doc().get();
+    GetData;
   }
+  String name= 'Sunie Pham';
+  String email = 'sunieux@gmail.com';
+  GetData()async{
+    SharedPreferences shared=await  SharedPreferences.getInstance();
+    String uId= shared.getString('uId')!;
+    DocumentReference doc= FirebaseFirestore.instance.collection("User").doc(uId);
+    await doc.get().then((value) {
+     name= value.get('name');
+     print('-----------${value.get('name')}');
+     email=value.get('email');
+     print('-----------${value.get('email')}');
+    });
 
+
+  }
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
+
     double hei = MediaQuery.of(context).size.height;
     double wid = MediaQuery.of(context).size.width;
-    String name = 'Sunie Pham';
-    String email = 'sunieux@gmail.com';
+    GetData;
 
     return SafeArea(
       child: Scaffold(

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled4/UI/home.dart';
 
 import '../widget/button.dart';
@@ -20,6 +21,7 @@ class _CreateState extends State<Create> {
   late String email;
   late String password;
   late String name;
+
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +100,9 @@ class _CreateState extends State<Create> {
                       email: email,
                       password: password,
                     );
+                   SharedPreferences shared=await  SharedPreferences.getInstance();
+                      shared.setString('uId', newUser.user!.uid);
+                      print('====================================${shared.getString('uId')}');
                     if (newUser != null) {
                       FirebaseFirestore.instance
                           .collection('User')

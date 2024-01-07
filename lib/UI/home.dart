@@ -155,7 +155,6 @@ class _HomePageState extends State<HomePage> {
         Uri.parse('https://www.themealdb.com/api/json/v1/1/search.php?f=a'));
     if (response.statusCode == 200) {
       Map data = jsonDecode(response.body);
-      print("================== :${data['meals']}");
       for (var element in data['meals']) {
         items.add(
           Items(
@@ -207,8 +206,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     double hei = MediaQuery.of(context).size.height;
-    print(item);
-    print(items);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: SingleChildScrollView(
