@@ -23,8 +23,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
     setState(() {});
   }
 
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController number = TextEditingController();
+  TextEditingController gender = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+
     double hei = MediaQuery.of(context).size.height;
     double wid = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -65,7 +71,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               image: AssetImage(
                                   'assets/images/06361988-ab1d-48cb-bdc0-8fb7b6b25a04.jpg'),
                             )
-                          : Image.file(image!,width:double.infinity,fit: BoxFit.fitWidth,),
+                          : Image.file(
+                              image!,
+                              width: double.infinity,
+                              fit: BoxFit.fitWidth,
+                            ),
                     ),
                   ),
                   Positioned(
@@ -87,34 +97,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 padding: EdgeInsets.all(25),
                 child: Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'First Name'),
-                          ),
-                        ),
-                        SizedBox(width: wid * 0.05),
-                        Expanded(
-                          child: TextFormField(
-                            decoration:
-                                const InputDecoration(labelText: 'Last Name'),
-                          ),
-                        ),
-                      ],
+                    TextFormField(
+                      decoration: const InputDecoration(labelText: 'Full Name'),
+                      keyboardType: TextInputType.name,
+                      controller: name,
                     ),
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'Email'),
+                      keyboardType: TextInputType.emailAddress,
+                      controller: name,
                     ),
                     TextFormField(
                       decoration: const InputDecoration(labelText: 'Gender'),
+                      keyboardType: TextInputType.text,
+                      controller: name,
                     ),
                     TextFormField(
                       decoration:
                           const InputDecoration(labelText: 'Phone Number'),
-                      obscureText: true,
+                      keyboardType: TextInputType.number,
+                      controller: name,
                     ),
                   ],
                 ),

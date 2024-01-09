@@ -1,10 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:untitled4/UI/Profile.dart';
 import 'package:untitled4/UI/home.dart';
 
 import '../UI/setting_screen.dart';
 
-class DrawerApp extends StatelessWidget {
-  const DrawerApp({super.key});
+class DrawerApp extends StatefulWidget {
+   DrawerApp({super.key});
+
+  @override
+  State<DrawerApp> createState() => _DrawerAppState();
+}
+
+class _DrawerAppState extends State<DrawerApp> {
+  String name ="";
+
+  String email="" ;
+
+  @override
+  void initState() {
+    GetData();
+  }
+
+   GetData() async {
+     SharedPreferences shared = await SharedPreferences.getInstance();
+     String uId = shared.getString('uId')!;
+     FirebaseFirestore.instance.collection('User').doc(uId).get().then((value) {
+       setState(() {
+         email = value["Email"].toString();
+         print(email);
+         name = value["Name"].toString();
+         print(name);
+       });
+     });
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +50,9 @@ class DrawerApp extends StatelessWidget {
         children: [
           SizedBox(height: 40),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              SizedBox(width: 10),
               const CircleAvatar(
                 radius: 40.0,
                 backgroundImage: AssetImage(
@@ -30,9 +61,9 @@ class DrawerApp extends StatelessWidget {
               const SizedBox(width: 16.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children:  [
                   Text(
-                    'Sunie Pham',
+                    name,
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
@@ -40,7 +71,7 @@ class DrawerApp extends StatelessWidget {
                   ),
                   SizedBox(height: 8.0),
                   Text(
-                    'sunieux@gmail.com',
+                   email,
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.black,

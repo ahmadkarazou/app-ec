@@ -21,6 +21,8 @@ class _CreateState extends State<Create> {
   late String email;
   late String password;
   late String name;
+  late String gender;
+  late String phoneNumber;
 
 
   @override
@@ -41,14 +43,14 @@ class _CreateState extends State<Create> {
                   fontSize: 24,
                 ),
               ),
-              SizedBox(height: hei * 0.04),
+              SizedBox(height: hei * 0.03),
               Padding(
                 padding: const EdgeInsets.all(25.0),
                 child: Center(
                   child: Column(
                     children: [
                       TextField(
-                        // controller: TextEditingController(),
+                        keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
                           hintText: 'Enter your name',
                         ),
@@ -56,36 +58,46 @@ class _CreateState extends State<Create> {
                           name = value;
                         },
                       ),
-                      SizedBox(height: hei * 0.05),
+                      SizedBox(height: hei * 0.03),
                       TextField(
                         keyboardType: TextInputType.emailAddress,
-                        //  controller: TextEditingController(),
                         decoration: const InputDecoration(
-                          hintText: 'Email Address',
+                          hintText: 'Enter Email Address',
                         ),
                         onChanged: (value) {
                           email = value;
                         },
                       ),
-                      SizedBox(height: hei * 0.05),
+                      SizedBox(height: hei * 0.03),
                       TextField(
                         keyboardType: TextInputType.visiblePassword,
                         obscureText: true,
-                        // controller: TextEditingController(),
                         decoration: const InputDecoration(
-                          hintText: 'Password',
+                          hintText: 'Enter Password',
                         ),
                         onChanged: (value) {
                           password = value;
                         },
                       ),
-                      SizedBox(height: hei * 0.05),
+                      SizedBox(height: hei * 0.03),
                       TextField(
-                        obscureText: true,
-                        // controller: TextEditingController(),
+                        keyboardType: TextInputType.text,
                         decoration: const InputDecoration(
-                          hintText: 'Confirm Password',
+                          hintText: 'Enter Gender',
                         ),
+                        onChanged: (value) {
+                          gender = value;
+                        },
+                      ),
+                      SizedBox(height: hei * 0.03),
+                      TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          hintText: 'Enter Phone Number',
+                        ),
+                        onChanged: (value) {
+                          phoneNumber = value;
+                        },
                       ),
                     ],
                   ),
@@ -111,6 +123,8 @@ class _CreateState extends State<Create> {
                         'Name': name,
                         'Email':email,
                         'Password':password,
+                        'gender':gender,
+                        'phoneNumber':phoneNumber,
                       });
                     }
                     Navigator.of(context).pushAndRemoveUntil(

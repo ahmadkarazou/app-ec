@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled4/UI/Create.dart';
 import 'package:untitled4/UI/Forgot.dart';
 import 'package:untitled4/UI/home.dart';
@@ -19,8 +20,14 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
-    double hei = MediaQuery.of(context).size.height;
-    double wid = MediaQuery.of(context).size.width;
+    double hei = MediaQuery
+        .of(context)
+        .size
+        .height;
+    double wid = MediaQuery
+        .of(context)
+        .size
+        .width;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -85,9 +92,14 @@ class _LogInState extends State<LogIn> {
                   try {
                     final user = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
-                    if(user!=null){
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => Home()));
+                    SharedPreferences shared = await SharedPreferences
+                        .getInstance();
+                    shared.setString('uId', user.user!.uid);
+                    print(user.user!.uid);
+                    if (user != null) {
+                      Navigator.pushAndRemoveUntil(context,
+                          MaterialPageRoute(builder: (context) => Home(),), (
+                              route) => false);
                     }
                   } catch (e) {
                     print(e);
@@ -146,7 +158,7 @@ class _LogInState extends State<LogIn> {
                 children: [
                   Text('Dont have an account?',
                       style:
-                          TextStyle(fontWeight: FontWeight.w300, fontSize: 14)),
+                      TextStyle(fontWeight: FontWeight.w300, fontSize: 14)),
                   TextButton(
                       onPressed: () {
                         Navigator.push(context,

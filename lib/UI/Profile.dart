@@ -9,7 +9,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'edit_profile.dart';
 
 class Profile extends StatefulWidget {
-  const Profile({super.key});
+  Profile({super.key});
+
+  String name = "";
+  String email = "";
 
   @override
   State<Profile> createState() => _ProfileState();
@@ -20,30 +23,24 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
-    FirebaseFirestore.instance.collection('User').doc().get();
-    GetData;
+    GetData();
   }
-  String name= 'Sunie Pham';
-  String email = 'sunieux@gmail.com';
-  GetData()async{
-    SharedPreferences shared=await  SharedPreferences.getInstance();
-    String uId= shared.getString('uId')!;
-    DocumentReference doc= FirebaseFirestore.instance.collection("User").doc(uId);
-    await doc.get().then((value) {
-     name= value.get('name');
-     print('-----------${value.get('name')}');
-     email=value.get('email');
-     print('-----------${value.get('email')}');
+
+  Future GetData() async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    String uId = shared.getString('uId')!;
+    FirebaseFirestore.instance.collection('User').doc(uId).get().then((value) {
+      setState(() {
+        widget.email = value["Email"].toString();
+        widget.name = value["Name"].toString();
+      });
     });
-
-
   }
-  @override
-  Widget build(BuildContext context)  {
 
+  @override
+  Widget build(BuildContext context) {
     double hei = MediaQuery.of(context).size.height;
     double wid = MediaQuery.of(context).size.width;
-    GetData;
 
     return SafeArea(
       child: Scaffold(
@@ -67,14 +64,14 @@ class _ProfileState extends State<Profile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name,
+                        widget.name,
                         style: TextStyle(
                           fontSize: 24.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        email,
+                        widget.email,
                         style: TextStyle(
                           fontSize: 18.0,
                           color: Colors.black,
@@ -87,7 +84,7 @@ class _ProfileState extends State<Profile> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) =>  EditProfilePage()),
+                            builder: (context) => EditProfilePage()),
                       );
                     },
                     icon: Icon(
@@ -139,8 +136,11 @@ class _ProfileState extends State<Profile> {
                         title: 'Log Out',
                         icon: Icons.exit_to_app,
                         iconColor: Colors.green,
-                        onTap: () {
+                        onTap: () async {
                           _auth.signOut();
+                          SharedPreferences shared =
+                              await SharedPreferences.getInstance();
+                          shared.setString('uId', '');
 
                           Navigator.pushAndRemoveUntil(
                               context,

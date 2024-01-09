@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   List<Widget> pages = [
     const HomePage(),
     const Cart(),
-    const Profile(),
+     Profile(),
   ];
   final _auth = FirebaseAuth.instance;
   late User singedInUser;
@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: const DrawerApp(),
+        drawer:  DrawerApp(),
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
