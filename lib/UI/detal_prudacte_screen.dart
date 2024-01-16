@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:untitled4/model/cart_item.dart';
 
+import '../model/food_api_model.dart';
 import '../widget/button.dart';
 
 class DetalPrudacteScreen extends StatefulWidget {
-  const DetalPrudacteScreen({super.key,
+   DetalPrudacteScreen({super.key,
+
     required this.name,
     required this.pries,
     required this.components,
     required this.imageUrl,
-    required this.isFavourite, required this.id, required this.category});
-
+     this.isFavourite, required this.id, required this.category, required this.index});
+final int index;
   final String name;
   final String pries;
   final String components;
   final String imageUrl;
-  final bool isFavourite;
+   late  bool? isFavourite;
   final int id;
   final String category;
 
@@ -36,7 +38,6 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
         .of(context)
         .size
         .width;
-    bool isFavourit = widget.isFavourite;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -78,12 +79,15 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                       child: IconButton(
                         onPressed: () {
                           setState(() {
-                            isFavourit = !isFavourit;
+                            favoriteItem(widget.index);
+                          });
+                          setState(() {
+
                           });
                         },
                         icon: Icon(
                           Icons.favorite,
-                          color: (isFavourit) ? Colors.red : Colors.grey,
+                          color: (widget.isFavourite!) ? Colors.red : Colors.grey,
                           size: 30,
                         ),
                       ),

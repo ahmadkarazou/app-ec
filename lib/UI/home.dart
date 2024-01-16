@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   List<Widget> pages = [
     const HomePage(),
     const Cart(),
-     Profile(),
+    Profile(),
   ];
   final _auth = FirebaseAuth.instance;
   late User singedInUser;
@@ -57,7 +57,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer:  DrawerApp(),
+        drawer: DrawerApp(),
         appBar: AppBar(
           centerTitle: true,
           title: const Text(
@@ -128,58 +128,66 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future fetchProducts() async {
-    final http.Response response =
-        await http.get(Uri.parse('https://fakestoreapi.com/products'));
-    if (response.statusCode == 200) {
-      List data = jsonDecode(response.body);
-      for (var element in data) {
-        item.add(
-          Items(
-            id: element['id'],
-            isFavo: false,
-            title: element['title'],
-            price: element['price'].toString(),
-            description: element['description'],
-            category: element['category'],
-            image: element['image'],
-          ),
-        );
-      }
-    }
-    setState(() {});
-  }
-
-  Future fetchMegaSale() async {
-    final http.Response response = await http.get(
-        Uri.parse('https://www.themealdb.com/api/json/v1/1/search.php?f=a'));
-    if (response.statusCode == 200) {
-      Map data = jsonDecode(response.body);
-      for (var element in data['meals']) {
-        items.add(
-          Items(
-            id: int.parse(element['idMeal']),
-            isFavo: false,
-            title: element['strMeal'],
-            price: element['idMeal'].toString(),
-            description: element['strInstructions'],
-            category: element['strCategory'],
-            image: element['strMealThumb'],
-          ),
-        );
-      }
-    }
-    setState(() {});
-  }
-
-  List<Items> items = [];
-  List<Items> item = [];
+  // Future fetchProducts() async {
+  //   final http.Response response =
+  //       await http.get(Uri.parse('https://fakestoreapi.com/products'));
+  //   if (response.statusCode == 200) {
+  //     List data = jsonDecode(response.body);
+  //     for (var element in data) {
+  //       item.add(
+  //         Items(
+  //           id: element['id'],
+  //           isFavo: false,
+  //           title: element['title'],
+  //           price: element['price'].toString(),
+  //           description: element['description'],
+  //           category: element['category'],
+  //           image: element['image'],
+  //         ),
+  //       );
+  //     }
+  //   }
+  //   setState(() {});
+  // }
+  //
+  // Future fetchMegaSale() async {
+  //   final http.Response response = await http.get(
+  //       Uri.parse('https://www.themealdb.com/api/json/v1/1/search.php?f=a'));
+  //   if (response.statusCode == 200) {
+  //     Map data = jsonDecode(response.body);
+  //     for (var element in data['meals']) {
+  //       items.add(
+  //         Items(
+  //           id: int.parse(element['idMeal']),
+  //           isFavo: false,
+  //           title: element['strMeal'],
+  //           price: element['idMeal'].toString(),
+  //           description: element['strInstructions'],
+  //           category: element['strCategory'],
+  //           image: element['strMealThumb'],
+  //         ),
+  //       );
+  //     }
+  //   }
+  //   setState(() {});
+  // }
+  //
+  // List<Items> items = [];
+  // List<Items> item = [];
+  bool isLoding = false;
 
   @override
   void initState() {
-    fetchProducts();
-    fetchMegaSale();
     super.initState();
+    loadData();
+  }
+
+  Future<void> loadData() async {
+    // isLoding = true;
+    await fetchProducts();
+    await fetchMegaSale();
+    setState(() {});
+    isLoding = false;
   }
 
   int activeIndex = 0;
@@ -243,7 +251,7 @@ class _HomePageState extends State<HomePage> {
                         Padding(
                           padding: EdgeInsets.only(left: 10.0),
                           child: TextButton(
-                            onPressed: () => fetchProducts(),
+                            onPressed: () {},
                             child: Text(
                               itemsImg[index]['title']!,
                               style: TextStyle(
@@ -329,37 +337,45 @@ class _HomePageState extends State<HomePage> {
                   'popular products',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-
               ],
             ),
             SizedBox(
               height: hei * 0.31,
               width: double.infinity,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: item.length,
-                itemBuilder: (context, index) {
-                  return PrudacteWidget(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => DetalPrudacteScreen(
+              child: isLoding
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: item.length,
+                      itemBuilder: (context, index) {
+                        return PrudacteWidget(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DetalPrudacteScreen(
+                                isFavourite: item[index].isFavo!,
+                                pries: item[index].price,
+                                imageUrl: item[index].image,
+                                name: item[index].title,
+                                components: item[index].description,
+                                id: item[index].id,
+                                category: item[index].category, index: index,
+                              ),
+                            ));
+                          },
                           isFavourite: item[index].isFavo!,
-                          pries: item[index].price,
                           imageUrl: item[index].image,
-                          name: item[index].title,
-                          components: item[index].description,
-                          id: item[index].id,
-                          category: item[index].category,
-                        ),
-                      ));
-                    },
-                    isFavourite: item[index].isFavo!,
-                    imageUrl: item[index].image,
-                    title: item[index].title,
-                    Pries: item[index].price, isCart: false,AddCart: (){},
-                  );
-                },
-              ),
+                          title: item[index].title,
+                          Pries: item[index].price,
+                          isCart: false,
+                          addCart: () {},
+                          addFaverite: () {
+                           setState(() {
+                             favoriteItem(index);
+                           });
+                          },
+                        );
+                      },
+                    ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -373,7 +389,9 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: hei * 0.31,
               width: double.infinity,
-              child: ListView.builder(
+              child: isLoding
+                  ? Center(child: CircularProgressIndicator())
+                  : ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: items.length,
                 itemBuilder: (context, index) {
@@ -387,15 +405,19 @@ class _HomePageState extends State<HomePage> {
                           name: items[index].title,
                           components: items[index].description,
                           id: items[index].id,
-                          category: items[index].category,
-
+                          category: items[index].category, index: index,
                         ),
                       ));
                     },
                     isFavourite: items[index].isFavo!,
                     imageUrl: items[index].image,
                     title: items[index].title,
-                    Pries: items[index].price, isCart: false,AddCart: (){},
+                    Pries: items[index].price,
+                    isCart: false,
+                    addCart: () {},
+                    addFaverite: () {setState(() {
+                      favoriteItems(index);
+                    });}
                   );
                 },
               ),
@@ -414,15 +436,20 @@ class PrudacteWidget extends StatefulWidget {
     required this.title,
     required this.Pries,
     required this.isFavourite,
-    required this.onTap, required this.isCart, required this.AddCart,
+    required this.onTap,
+    required this.isCart,
+    required this.addCart,
+    required this.addFaverite,
   });
-final bool isCart;
+
+  final bool isCart;
   final String imageUrl;
   final String title;
   final String Pries;
   final bool isFavourite;
   final VoidCallback onTap;
-  final VoidCallback AddCart;
+  final VoidCallback addCart;
+  final VoidCallback addFaverite;
 
   @override
   State<PrudacteWidget> createState() => _PrudacteWidgetState();
@@ -485,7 +512,6 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
                           fontSize: 15),
                     ),
                     Row(
-
                       children: [
                         CircleAvatar(
                           radius: 15,
@@ -493,26 +519,29 @@ class _PrudacteWidgetState extends State<PrudacteWidget> {
                               ? Colors.blue.shade100
                               : Colors.grey.shade100,
                           child: IconButton(
-                            onPressed: widget.AddCart,
+                            onPressed: widget.addCart,
                             icon: Icon(
                               Icons.add_shopping_cart,
                               size: 15,
-                              color: (widget.isCart) ? Colors.blue : Colors.grey,
+                              color:
+                                  (widget.isCart) ? Colors.blue : Colors.grey,
                             ),
                           ),
                         ),
-                        SizedBox(width:  wid * 0.01),
+                        SizedBox(width: wid * 0.01),
                         CircleAvatar(
                           radius: 15,
                           backgroundColor: (widget.isCart)
                               ? Colors.red.shade100
                               : Colors.grey.shade100,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: widget.addFaverite,
                             icon: Icon(
                               Icons.favorite,
                               size: 15,
-                              color: (widget.isFavourite) ? Colors.red : Colors.grey,
+                              color: (widget.isFavourite)
+                                  ? Colors.red
+                                  : Colors.grey,
                             ),
                           ),
                         ),
