@@ -5,21 +5,9 @@ import '../model/food_api_model.dart';
 import '../widget/button.dart';
 
 class DetalPrudacteScreen extends StatefulWidget {
-   DetalPrudacteScreen({super.key,
+  DetalPrudacteScreen({super.key, required this.index});
 
-    required this.name,
-    required this.pries,
-    required this.components,
-    required this.imageUrl,
-     this.isFavourite, required this.id, required this.category, required this.index});
-final int index;
-  final String name;
-  final String pries;
-  final String components;
-  final String imageUrl;
-   late  bool? isFavourite;
-  final int id;
-  final String category;
+  final int index;
 
   @override
   State<DetalPrudacteScreen> createState() => _DetalPrudacteScreenState();
@@ -30,23 +18,22 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double hei = MediaQuery
-        .of(context)
-        .size
-        .height;
-    double wid = MediaQuery
-        .of(context)
-        .size
-        .width;
+    double hei = MediaQuery.of(context).size.height;
+    double wid = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: Icon(Icons.arrow_back),
+            ),
             title: Text(
-              widget.name,
+              item[widget.index].title,
               maxLines: 1,
               style: TextStyle(
-
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
@@ -60,7 +47,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                     decoration: BoxDecoration(
                       color: Colors.black,
                       image: DecorationImage(
-                          image: NetworkImage(widget.imageUrl),
+                          image: NetworkImage(item[widget.index].image),
                           fit: BoxFit.fitWidth),
                       borderRadius: BorderRadius.all(
                         Radius.circular(30),
@@ -81,13 +68,13 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                           setState(() {
                             favoriteItem(widget.index);
                           });
-                          setState(() {
-
-                          });
+                          setState(() {});
                         },
                         icon: Icon(
                           Icons.favorite,
-                          color: (widget.isFavourite!) ? Colors.red : Colors.grey,
+                          color: (item[widget.index].isFavo)
+                              ? Colors.red
+                              : Colors.grey,
                           size: 30,
                         ),
                       ),
@@ -115,7 +102,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                           SizedBox(
                             width: wid * 0.6,
                             child: Text(
-                              widget.name,
+                              item[widget.index].title,
                               maxLines: 1,
                               style: TextStyle(
                                 fontSize: 20,
@@ -124,7 +111,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                             ),
                           ),
                           Text(
-                            '\$ ${widget.pries}',
+                            '\$ ${item[widget.index].price}',
                             style: TextStyle(
                                 fontSize: 20,
                                 color: Colors.blue,
@@ -154,7 +141,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                         height: hei * 0.25,
                         child: SingleChildScrollView(
                           child: Text(
-                            widget.components,
+                            item[widget.index].description,
                             style: TextStyle(
                               fontSize: 14,
                             ),
@@ -163,15 +150,11 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                       ),
                       SizedBox(height: hei * 0.05),
                       ElevatedButton(
-                        onPressed: () {
-                          cart.addItem(widget.id, widget.name, widget.pries,
-                              widget.components, widget.category, widget.imageUrl);
-                          print(cart.cartItems);
-                        },
+                        onPressed: () {},
                         style: buttonPrimary,
                         child: const Text('Add To Cart',
                             style:
-                            TextStyle(color: Colors.white, fontSize: 20)),
+                                TextStyle(color: Colors.white, fontSize: 20)),
                       ),
                     ]),
               ),

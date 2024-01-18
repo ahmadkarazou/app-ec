@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:untitled4/UI/checkout_anemashen.dart';
 import 'package:untitled4/model/cart_item.dart';
 
+import '../model/food_api_model.dart';
 import '../widget/button.dart';
+import '../widget/prodect_widget.dart';
 import 'Checkout.dart';
 
 class Cart extends StatefulWidget {
@@ -29,43 +31,22 @@ class _CartState extends State<Cart> {
               height: hei * 0.55,
               width: wid,
               child:
-                  // ListView.builder(
-                  //   scrollDirection: Axis.horizontal,
-                  //   itemCount: Item.cartItems.length,
-                  //   itemBuilder: (context, index) {
-                  //     return CartPrudacte(
-                  //       urlImage: Item.cartItems[index].,
-                  //       name: Item.cartItems[index]['title'],
-                  //       pries: Item.cartItems[index]['price'],
-                  //     );
-                  //     // PrudacteWidget(
-                  //     // onTap: () {},
-                  //     // isFavourite: items[index].isFavo!,
-                  //     // imageUrl: items[index].image,
-                  //     // title: items[index].title,
-                  //     // Pries: items[index].price,
-                  //     // );
-                  //   },
-                  // ),
-                  ListView(
-                children: [
-                  CartPrudacte(
-                    urlImage: 'assets/images/images.jpg',
-                    name: 'Natural rose soap',
-                    pries: '19.99',
-                  ),
-                  CartPrudacte(
-                    urlImage: 'assets/images/wonder_forest.jpeg',
-                    name: 'Natural rose soap',
-                    pries: '19.99',
-                  ),
-                  CartPrudacte(
-                    urlImage: 'assets/images/art-home2.jpeg',
-                    name: 'Natural rose soap',
-                    pries: '19.99',
-                  ),
-                ],
-              ),
+              ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemCount: item.length,
+                itemBuilder: (context, index) {
+                  if (item[index].isCart) {
+                    return CartPrudacte(
+                      urlImage:item[index].image,
+                      name: item[index].title,
+                      pries:item[index].price,
+                    );
+                  } else {
+                    return SizedBox.shrink();
+                  }
+                },
+              )
+
             ),
             Container(
               padding: EdgeInsets.only(left: 20, top: 30, right: 20),
@@ -219,20 +200,28 @@ class _CartPrudacteState extends State<CartPrudacte> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
+            child: Image.network(
               widget.urlImage,
               fit: BoxFit.fitWidth,
-              width: wid * 0.31,
-              height: hei * 0.31,
+              width: wid * 0.25,
+              height: hei * 0.25,
             ),
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                widget.name,
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+              SizedBox(
+                width: wid*.60,
+                child: Text(
+                  widget.name,
+                  maxLines: 1,
+                  textAlign: TextAlign.end,
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
               Text(
                 '\$ ${widget.pries}',

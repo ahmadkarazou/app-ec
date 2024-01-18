@@ -1,20 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled4/UI/LogIn.dart';
 import 'package:untitled4/UI/home.dart';
 import 'package:untitled4/UI/onBoarding.dart';
 import 'package:untitled4/firebase_options.dart';
-
-import 'UI/FavouritePage.dart';
+import 'model/food_api_model.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
   runApp(const MyApp());
 }
 
@@ -41,8 +40,27 @@ class UserLogin extends StatefulWidget {
   State<UserLogin> createState() => _UserLoginState();
 }
 
+
 class _UserLoginState extends State<UserLogin> {
   @override
+  bool isLoding = false;
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+
+    });
+    loadData();
+  }
+
+  Future<void> loadData() async {
+    isLoding = true;
+    await fetchProducts();
+    await fetchMegaSale();
+    setState(() {});
+    isLoding = false;
+  }
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _checkUser(),
@@ -70,4 +88,5 @@ class _UserLoginState extends State<UserLogin> {
     }
   }
 }
+
 
