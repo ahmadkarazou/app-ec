@@ -40,27 +40,20 @@ class UserLogin extends StatefulWidget {
   State<UserLogin> createState() => _UserLoginState();
 }
 
-
 class _UserLoginState extends State<UserLogin> {
-  @override
-  bool isLoding = false;
-
   @override
   void initState() {
     super.initState();
-    setState(() {
-
-    });
+    setState(() {});
     loadData();
   }
 
   Future<void> loadData() async {
-    isLoding = true;
     await fetchProducts();
     await fetchMegaSale();
     setState(() {});
-    isLoding = false;
   }
+
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _checkUser(),
@@ -88,5 +81,3 @@ class _UserLoginState extends State<UserLogin> {
     }
   }
 }
-
-
