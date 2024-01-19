@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 class Items {
   final int id;
   final String title;
-  final String price;
+  final double price;
   final String description;
   final String category;
   final String image;
@@ -34,7 +34,7 @@ Future fetchProducts() async {
           id: element['id'],
           isFavo: false,
           title: element['title'],
-          price: element['price'].toString(),
+          price: element['price'],
           description: element['description'],
           category: element['category'],
           image: element['image'],
@@ -55,7 +55,7 @@ Future fetchMegaSale() async {
           id: int.parse(element['idMeal']),
           isFavo: false,
           title: element['strMeal'],
-          price: 26.5.toString(),
+          price: 26.5,
           description: element['strInstructions'],
           category: 'food',
           image: element['strMealThumb'],

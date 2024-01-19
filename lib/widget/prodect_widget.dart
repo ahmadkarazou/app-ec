@@ -16,7 +16,7 @@ class PrudacteWidgets extends StatefulWidget {
   final bool isCart;
   final String imageUrl;
   final String title;
-  final String Pries;
+  final double Pries;
   final bool isFavourite;
   final VoidCallback onTap;
   final VoidCallback addCart;

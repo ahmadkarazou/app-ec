@@ -17,37 +17,56 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  CartItem Item = CartItem();
+  double pries=0.0;
+  void initState() {
+    super.initState();
+    calculateTotalPrice();
+  }
 
+  void calculateTotalPrice() {
+    pries = 0.0;
+    for (var cartItem in item) {
+      if (cartItem.isCart) {
+        pries += cartItem.price;
+      }
+    }
+  }
   @override
   Widget build(BuildContext context) {
     double hei = MediaQuery.of(context).size.height;
     double wid = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SafeArea(
         child: Column(
           children: [
             SizedBox(
-              height: hei * 0.55,
-              width: wid,
-              child:
-              ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: item.length,
-                itemBuilder: (context, index) {
-                  if (item[index].isCart) {
-                    return CartPrudacte(
-                      urlImage:item[index].image,
-                      name: item[index].title,
-                      pries:item[index].price,
-                    );
-                  } else {
-                    return SizedBox.shrink();
-                  }
-                },
-              )
+                height: hei * 0.55,
+                width: wid,
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: item.length,
+                  itemBuilder: (context, index) {
+                    if (item[index].isCart) {
+                      // pries=pries+(item[index].price);
+                      return CartPrudacte(
 
-            ),
+                        urlImage: item[index].image,
+                        name: item[index].title,
+                        pries: item[index].price,
+                        deleteItem: () {
+                          setState(() {
+                            cartItem(index);
+                            calculateTotalPrice();
+                          });
+                        },
+                      );
+
+                    } else {
+                      return SizedBox.shrink();
+                    }
+                  },
+                )),
             Container(
               padding: EdgeInsets.only(left: 20, top: 30, right: 20),
               height: hei * 0.25,
@@ -66,6 +85,7 @@ class _CartState extends State<Cart> {
               child: Column(
                 children: [
                   Row(
+
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -76,7 +96,7 @@ class _CartState extends State<Cart> {
                             color: Colors.black54),
                       ),
                       Text(
-                        '\$ 59.97',
+                        '\$ ${pries.toStringAsFixed(2)}',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -116,7 +136,7 @@ class _CartState extends State<Cart> {
                         ),
                       ),
                       Text(
-                        '\$ 59.97',
+                        '\$ ${pries.toStringAsFixed(2)}',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 16),
                       ),
@@ -154,18 +174,20 @@ class CartPrudacte extends StatefulWidget {
       {super.key,
       required this.urlImage,
       required this.name,
-      required this.pries});
+      required this.pries,
+      required this.deleteItem});
 
   final String urlImage;
   final String name;
-  final String pries;
+  final double pries;
+  final VoidCallback deleteItem;
 
   @override
   State<CartPrudacte> createState() => _CartPrudacteState();
 }
 
 class _CartPrudacteState extends State<CartPrudacte> {
-  int num = 0;
+  int num = 1;
 
   void _increment() {
     setState(() {
@@ -175,7 +197,9 @@ class _CartPrudacteState extends State<CartPrudacte> {
 
   void _decrement() {
     setState(() {
-      num--;
+      if (num > 1) {
+        num--;
+      }
     });
   }
 
@@ -212,7 +236,7 @@ class _CartPrudacteState extends State<CartPrudacte> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               SizedBox(
-                width: wid*.60,
+                width: wid * .60,
                 child: Text(
                   widget.name,
                   maxLines: 1,
@@ -275,7 +299,7 @@ class _CartPrudacteState extends State<CartPrudacte> {
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                           color: Colors.white),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed:widget.deleteItem,
                         icon: Icon(
                           Icons.delete_outline_outlined,
                           color: Colors.black54,

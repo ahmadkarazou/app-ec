@@ -6,7 +6,7 @@ class CartItem {
   void addItem(
     int id,
     String title,
-    String price,
+    double price,
     String description,
     String category,
     String image,
