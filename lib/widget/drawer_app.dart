@@ -98,7 +98,7 @@ class _DrawerAppState extends State<DrawerApp> {
                 builder: (context) => Home(selectedindex: 1),
               ));
             },
-            title: 'My Order',
+            title: 'My Cart',
             icon: Icons.shopping_cart_outlined,
           ),
           SizedBox(height: 10),

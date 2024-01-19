@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'Categore_screen.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -18,7 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        toolbarHeight: hei*0.08,
+        toolbarHeight: hei * 0.08,
         title: Container(
           width: wid,
           height: hei * 0.06,
@@ -26,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
             controller: Search,
             decoration: InputDecoration(
               hintText: 'Search',
-              hintStyle: TextStyle(fontSize: 20,height: 3.5),
+              hintStyle: TextStyle(fontSize: 20, height: 3.5),
               prefixIcon: Icon(
                 Icons.search,
                 size: 30,
@@ -44,20 +46,28 @@ class _SearchScreenState extends State<SearchScreen> {
           SizedBox(height: 15),
           CategureWidget(
               imageUrl: 'assets/images/أنواع_الحرف_اليدوية.jpg',
-              title: 'Hand med'),
+              title: 'Hand med',
+              category: "men's clothing"),
           SizedBox(height: 15),
           CategureWidget(
-              imageUrl:
-                  'assets/images/pngtree-artistic-metal-tree-wall-art-wall-decor-picture-image_3640734.jpg',
-              title: 'Arts and decoration'),
+            imageUrl:
+                'assets/images/pngtree-artistic-metal-tree-wall-art-wall-decor-picture-image_3640734.jpg',
+            title: 'Arts and decoration',
+            category: "women's clothing",
+          ),
           SizedBox(height: 15),
           CategureWidget(
-              imageUrl:
-                  'assets/images/أكلات-آسيوية-الأشهر-والأكثر-تناولا-8790.jpg',
-              title: 'Food'),
+            imageUrl:
+                'assets/images/أكلات-آسيوية-الأشهر-والأكثر-تناولا-8790.jpg',
+            title: 'Food',
+            category: "food",
+          ),
           SizedBox(height: 15),
           CategureWidget(
-              imageUrl: 'assets/images/gateaux.jpg', title: 'candies'),
+            imageUrl: 'assets/images/gateaux.jpg',
+            title: 'candies',
+            category: "food",
+          ),
           SizedBox(height: 15),
         ],
       )),
@@ -70,15 +80,21 @@ class CategureWidget extends StatelessWidget {
     Key? key,
     required this.imageUrl,
     required this.title,
+    required this.category,
   }) : super(key: key);
 
   final String imageUrl;
   final String title;
+  final String category;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => CategoreScreen(nameList: category),
+        ));
+      },
       child: Container(
         height: 175,
         width: double.infinity,
@@ -102,15 +118,12 @@ class CategureWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                      ),
+                  padding: const EdgeInsets.only(left: 15.0,top: 10),
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
                     ),
                   ),
                 ),

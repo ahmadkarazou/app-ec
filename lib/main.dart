@@ -44,8 +44,9 @@ class _UserLoginState extends State<UserLogin> {
   @override
   void initState() {
     super.initState();
-    setState(() {});
+
     loadData();
+    setState(() {});
   }
 
   Future<void> loadData() async {

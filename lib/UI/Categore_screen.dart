@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../model/food_api_model.dart';
+import '../widget/prodect_widget.dart';
+import 'detal_prudacte_screen.dart';
+
 class CategoreScreen extends StatefulWidget {
-  const CategoreScreen({super.key});
+  CategoreScreen({
+    super.key,
+    required this.nameList,
+  });
+
+  final String nameList;
 
   @override
   State<CategoreScreen> createState() => _CategoreScreenState();
@@ -26,55 +35,94 @@ class _CategoreScreenState extends State<CategoreScreen> {
               ),
             ),
           ),
-          body: GridView.count(
-            crossAxisCount: 2,
-            childAspectRatio: hei * 0.00092,
-            children: [
-              Container(
-                height: hei,
-                child: PrudacteWidget(
-                    AddCart: () {},
-                    onTap: () {},
-                    isFavourite: true,
-                    isCart: false,
-                    imageUrl: 'assets/images/wonder_forest.jpeg',
-                    title: 'Luxury soap',
-                    Pries: 29.43),
-              ),
-              PrudacteWidget(
-                  AddCart: () {},
-                  onTap: () {},
-                  isCart: true,
-                  isFavourite: false,
-                  imageUrl: 'assets/images/small -trends.jpeg',
-                  title: 'Luxury soap',
-                  Pries: 29.43),
-              PrudacteWidget(
-                  AddCart: () {},
-                  onTap: () {},
-                  isCart: true,
-                  isFavourite: false,
-                  imageUrl: 'assets/images/lnsider_monkey.jpeg',
-                  title: 'Luxury soap',
-                  Pries: 29.43),
-              PrudacteWidget(
-                  AddCart: () {},
-                  onTap: () {},
-                  isCart: true,
-                  isFavourite: false,
-                  imageUrl: 'assets/images/art-home2.jpeg',
-                  title: 'Luxury soap',
-                  Pries: 29.43),
-              PrudacteWidget(
-                  AddCart: () {},
-                  onTap: () {},
-                  isCart: true,
-                  isFavourite: false,
-                  imageUrl: 'assets/images/images.jpg',
-                  title: 'Luxury soap',
-                  Pries: 29.43),
-            ],
-          )),
+          body: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 0.77,
+            ),
+            itemCount:
+                item.where((element) => element.category == widget.nameList).length,
+            itemBuilder: (context, index) {
+              final favoriteItems = item
+                  .where((element) => element.category ==widget.nameList)
+                  .toList()[index];
+
+              return PrudacteWidgets(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => DetalPrudacteScreen(
+                      index: item.indexOf(favoriteItems),
+                    ),
+                  ));
+                },
+                isFavourite: favoriteItems.isFavo,
+                imageUrl: favoriteItems.image,
+                title: favoriteItems.title,
+                Pries: favoriteItems.price,
+                isCart: favoriteItems.isCart,
+                addCart: () {
+                  setState(() {
+                    cartItem(item.indexOf(favoriteItems));
+                  });
+                },
+                addFaverite: () {
+                  setState(() {
+                    favoriteItem(item.indexOf(favoriteItems));
+                  });
+                },
+              );
+            },
+          )
+          // GridView.count(
+          //   crossAxisCount: 2,
+          //   childAspectRatio: hei * 0.00092,
+          //   children: [
+          //     Container(
+          //       height: hei,
+          //       child: PrudacteWidget(
+          //           AddCart: () {},
+          //           onTap: () {},
+          //           isFavourite: true,
+          //           isCart: false,
+          //           imageUrl: 'assets/images/wonder_forest.jpeg',
+          //           title: 'Luxury soap',
+          //           Pries: 29.43),
+          //     ),
+          //     PrudacteWidget(
+          //         AddCart: () {},
+          //         onTap: () {},
+          //         isCart: true,
+          //         isFavourite: false,
+          //         imageUrl: 'assets/images/small -trends.jpeg',
+          //         title: 'Luxury soap',
+          //         Pries: 29.43),
+          //     PrudacteWidget(
+          //         AddCart: () {},
+          //         onTap: () {},
+          //         isCart: true,
+          //         isFavourite: false,
+          //         imageUrl: 'assets/images/lnsider_monkey.jpeg',
+          //         title: 'Luxury soap',
+          //         Pries: 29.43),
+          //     PrudacteWidget(
+          //         AddCart: () {},
+          //         onTap: () {},
+          //         isCart: true,
+          //         isFavourite: false,
+          //         imageUrl: 'assets/images/art-home2.jpeg',
+          //         title: 'Luxury soap',
+          //         Pries: 29.43),
+          //     PrudacteWidget(
+          //         AddCart: () {},
+          //         onTap: () {},
+          //         isCart: true,
+          //         isFavourite: false,
+          //         imageUrl: 'assets/images/images.jpg',
+          //         title: 'Luxury soap',
+          //         Pries: 29.43),
+          //   ],
+          // ),
+          ),
     );
   }
 }

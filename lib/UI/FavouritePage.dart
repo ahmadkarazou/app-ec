@@ -57,7 +57,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 isCart: item[index].isCart,
                 addCart: () {
                   setState(() {
-                    cartItem(index);
+                    cartItem(item.indexOf(favoriteItems));
                   });
                 },
                 addFaverite: () {

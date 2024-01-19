@@ -303,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                 SectionsImage(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CategoreScreen(),
+                        builder: (context) => CategoreScreen(nameList:  "men's clothing"),
                       ));
                     },
                     name: 'Hand made',
@@ -311,7 +311,7 @@ class _HomePageState extends State<HomePage> {
                 SectionsImage(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CategoreScreen(),
+                        builder: (context) => CategoreScreen(nameList:  "women's clothing"),
                       ));
                     },
                     name: 'decoration',
@@ -319,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                 SectionsImage(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CategoreScreen(),
+                        builder: (context) => CategoreScreen(nameList:"food"),
                       ));
                     },
                     name: 'Food',
@@ -327,7 +327,7 @@ class _HomePageState extends State<HomePage> {
                 SectionsImage(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CategoreScreen(),
+                        builder: (context) => CategoreScreen(nameList: "food"),
                       ));
                     },
                     name: 'candies',

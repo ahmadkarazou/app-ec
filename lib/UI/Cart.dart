@@ -27,7 +27,7 @@ class _CartState extends State<Cart> {
     pries = 0.0;
     for (var cartItem in item) {
       if (cartItem.isCart) {
-        pries += cartItem.price;
+        pries += double.parse(cartItem.price);
       }
     }
   }
@@ -53,7 +53,7 @@ class _CartState extends State<Cart> {
 
                         urlImage: item[index].image,
                         name: item[index].title,
-                        pries: item[index].price,
+                        pries:double.parse(item[index].price) ,
                         deleteItem: () {
                           setState(() {
                             cartItem(index);
