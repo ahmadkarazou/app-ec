@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:untitled4/UI/Categore_screen.dart';
@@ -11,9 +12,11 @@ import 'package:untitled4/UI/Profile.dart';
 import 'package:untitled4/UI/detal_prudacte_screen.dart';
 import 'package:untitled4/UI/notification_screen.dart';
 import 'package:untitled4/UI/search_screen.dart';
+import 'package:untitled4/model/DataSarche.dart';
 import 'package:untitled4/model/food_api_model.dart';
 import 'package:untitled4/widget/drawer_app.dart';
 import 'package:untitled4/widget/prodect_widget.dart';
+
 
 import 'Cart.dart';
 
@@ -61,8 +64,8 @@ class _HomeState extends State<Home> {
         drawer: DrawerApp(),
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Fresh home',
+          title:  Text(
+            "Fresh Home".tr ,
             style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.bold,
@@ -71,11 +74,7 @@ class _HomeState extends State<Home> {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SearchScreen(),
-                    ));
+                showSearch(context: context, delegate: DataSearch());
               },
               icon: const Icon(
                 Icons.search,
@@ -129,71 +128,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Future fetchProducts() async {
-  //   final http.Response response =
-  //       await http.get(Uri.parse('https://fakestoreapi.com/products'));
-  //   if (response.statusCode == 200) {
-  //     List data = jsonDecode(response.body);
-  //     for (var element in data) {
-  //       item.add(
-  //         Items(
-  //           id: element['id'],
-  //           isFavo: false,
-  //           title: element['title'],
-  //           price: element['price'].toString(),
-  //           description: element['description'],
-  //           category: element['category'],
-  //           image: element['image'],
-  //         ),
-  //       );
-  //     }
-  //   }
-  //   setState(() {});
-  // }
-  //
-  // Future fetchMegaSale() async {
-  //   final http.Response response = await http.get(
-  //       Uri.parse('https://www.themealdb.com/api/json/v1/1/search.php?f=a'));
-  //   if (response.statusCode == 200) {
-  //     Map data = jsonDecode(response.body);
-  //     for (var element in data['meals']) {
-  //       items.add(
-  //         Items(
-  //           id: int.parse(element['idMeal']),
-  //           isFavo: false,
-  //           title: element['strMeal'],
-  //           price: element['idMeal'].toString(),
-  //           description: element['strInstructions'],
-  //           category: element['strCategory'],
-  //           image: element['strMealThumb'],
-  //         ),
-  //       );
-  //     }
-  //   }
-  //   setState(() {});
-  // }
-  //
-  // List<Items> items = [];
-  // List<Items> item = [];
-  // bool isLoding = false;
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   setState(() {
-  //
-  //   });
-  //   loadData();
-  // }
-  //
-  // Future<void> loadData() async {
-  //   isLoding = true;
-  //   await fetchProducts();
-  //   await fetchMegaSale();
-  //   setState(() {});
-  //   isLoding = false;
-  // }
-
   int activeIndex = 0;
   List<Map<String, String>> itemsImg = [
     {
@@ -303,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                 SectionsImage(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CategoreScreen(nameList:  "men's clothing"),
+                        builder: (context) => CategoreScreen(nameList:  "men's clothing",title: 'Hand made'),
                       ));
                     },
                     name: 'Hand made',
@@ -311,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                 SectionsImage(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CategoreScreen(nameList:  "women's clothing"),
+                        builder: (context) => CategoreScreen(nameList:  "women's clothing",title:'decoration' ),
                       ));
                     },
                     name: 'decoration',
@@ -319,7 +253,7 @@ class _HomePageState extends State<HomePage> {
                 SectionsImage(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CategoreScreen(nameList:"food"),
+                        builder: (context) => CategoreScreen(nameList:"food",title: 'Food'),
                       ));
                     },
                     name: 'Food',
@@ -327,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                 SectionsImage(
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => CategoreScreen(nameList: "food"),
+                        builder: (context) => CategoreScreen(nameList: "food",title:'candies'),
                       ));
                     },
                     name: 'candies',

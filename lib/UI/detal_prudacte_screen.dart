@@ -150,7 +150,11 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
                       ),
                       SizedBox(height: hei * 0.05),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            cartItem(widget.index);
+                          });
+                        },
                         style: buttonPrimary,
                         child: const Text('Add To Cart',
                             style:

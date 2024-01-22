@@ -8,9 +8,11 @@ class CategoreScreen extends StatefulWidget {
   CategoreScreen({
     super.key,
     required this.nameList,
+    required this.title,
   });
 
   final String nameList;
+  final String title;
 
   @override
   State<CategoreScreen> createState() => _CategoreScreenState();
@@ -28,7 +30,7 @@ class _CategoreScreenState extends State<CategoreScreen> {
             // backgroundColor: Colors.grey.shade100,
             centerTitle: true,
             title: Text(
-              'Hand made',
+              widget.title,
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -40,11 +42,12 @@ class _CategoreScreenState extends State<CategoreScreen> {
               crossAxisCount: 2,
               childAspectRatio: 0.77,
             ),
-            itemCount:
-                item.where((element) => element.category == widget.nameList).length,
+            itemCount: item
+                .where((element) => element.category == widget.nameList)
+                .length,
             itemBuilder: (context, index) {
               final favoriteItems = item
-                  .where((element) => element.category ==widget.nameList)
+                  .where((element) => element.category == widget.nameList)
                   .toList()[index];
 
               return PrudacteWidgets(

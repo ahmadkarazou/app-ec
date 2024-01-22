@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:untitled4/UI/language_screen.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -31,7 +32,11 @@ class _SettingScreenState extends State<SettingScreen> {
             SizedBox(height: hei * 0.02),
             ButtonWidget(
               wid: wid,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => LanguageScreen(),
+                ));
+              },
               title: 'Language',
               icon: Icons.language,
               backColor: Colors.green.shade100,

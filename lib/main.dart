@@ -1,33 +1,44 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled4/UI/LogIn.dart';
 import 'package:untitled4/UI/home.dart';
 import 'package:untitled4/UI/onBoarding.dart';
 import 'package:untitled4/firebase_options.dart';
+import 'package:untitled4/local/locale.dart';
+import 'local/locale_controller.dart';
 import 'model/food_api_model.dart';
-
+late SharedPreferences sharedPref;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  sharedPref=await SharedPreferences.getInstance();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+
+    LocaleController controller=Get.put(LocaleController());
+    return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
+      locale:controller.intialLang,
+      translations: MyLocale(),
       home: UserLogin(),
     );
   }
