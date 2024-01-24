@@ -90,7 +90,7 @@ class _ProfileState extends State<Profile> {
                     icon: Icon(
                       Icons.settings,
                       size: 40,
-                      color: Color(0xff74918B),
+                      color: Color.fromRGBO(238, 114, 100, 1),
                     ),
                   ),
                 ],

@@ -7,44 +7,42 @@ import 'package:untitled4/UI/home.dart';
 import '../UI/setting_screen.dart';
 
 class DrawerApp extends StatefulWidget {
-   DrawerApp({super.key});
+  DrawerApp({super.key});
 
   @override
   State<DrawerApp> createState() => _DrawerAppState();
 }
 
 class _DrawerAppState extends State<DrawerApp> {
-  String name ="";
+  String name = "";
 
-  String email="" ;
+  String email = "";
 
   @override
   void initState() {
     GetData();
   }
 
-   GetData() async {
-     SharedPreferences shared = await SharedPreferences.getInstance();
-     String uId = shared.getString('uId')!;
-     FirebaseFirestore.instance.collection('User').doc(uId).get().then((value) {
-       setState(() {
-         email = value["Email"].toString();
-         print(email);
-         name = value["Name"].toString();
-         print(name);
-       });
-     });
-   }
+  GetData() async {
+    SharedPreferences shared = await SharedPreferences.getInstance();
+    String uId = shared.getString('uId')!;
+    FirebaseFirestore.instance.collection('User').doc(uId).get().then((value) {
+      setState(() {
+        email = value["Email"].toString();
+        print(email);
+        name = value["Name"].toString();
+        print(name);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 300,
+      width: 250,
       height: 800,
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30), bottomRight: Radius.circular(30))),
+          color: Colors.white, borderRadius: BorderRadius.circular(30)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -61,7 +59,7 @@ class _DrawerAppState extends State<DrawerApp> {
               const SizedBox(width: 16.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children:  [
+                children: [
                   Text(
                     name,
                     style: TextStyle(
@@ -71,7 +69,7 @@ class _DrawerAppState extends State<DrawerApp> {
                   ),
                   SizedBox(height: 8.0),
                   Text(
-                   email,
+                    email,
                     style: TextStyle(
                       fontSize: 16.0,
                       color: Colors.black,
@@ -81,7 +79,7 @@ class _DrawerAppState extends State<DrawerApp> {
               ),
             ],
           ),
-          SizedBox(height: 40),
+          SizedBox(height: 30),
           DrawerIcon(
             onTab: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -111,20 +109,20 @@ class _DrawerAppState extends State<DrawerApp> {
             title: 'My Profile',
             icon: Icons.person_2_outlined,
           ),
-          SizedBox(height: 80),
+          SizedBox(height: 40),
           Row(
             children: [
-              SizedBox(width: 40),
+              SizedBox(width: 30),
               Text(
                 'OTHER',
                 style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500),
+                    color: Color.fromRGBO(238, 114, 100, 1),
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold),
               ),
             ],
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 20),
           DrawerIcon(
             onTab: () {
               Navigator.of(context).push(MaterialPageRoute(
@@ -170,16 +168,23 @@ class DrawerIcon extends StatelessWidget {
       onPressed: onTab,
       child: Row(
         children: [
-          SizedBox(width: 30),
-          Icon(
-            icon,
-            size: 30,
-            color: Colors.grey,
+          SizedBox(width: 20),
+          CircleAvatar(
+            backgroundColor:Color.fromRGBO(238, 114, 100, 0.25) ,
+            maxRadius: 22,
+            child: Icon(
+              icon,
+              size: 25,
+              color:Color.fromRGBO(238, 114, 100, 1),
+            ),
           ),
           SizedBox(width: 20),
           Text(
             title,
-            style: TextStyle(color: Colors.grey, fontSize: 20),
+            style: TextStyle(
+              color: Color.fromRGBO(238, 114, 100, 1),
+              fontSize: 20,
+            ),
           )
         ],
       ),

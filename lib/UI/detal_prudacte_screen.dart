@@ -36,6 +36,7 @@ class _DetalPrudacteScreenState extends State<DetalPrudacteScreen> {
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
+                color: Color.fromRGBO(238, 114, 100, 1),
               ),
             ),
           ),

@@ -39,9 +39,9 @@ class _CartState extends State<Cart> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children: [
+          children: [SizedBox(height: hei*0.005),
             SizedBox(
-                height: hei * 0.55,
+                height: hei * 0.54,
                 width: wid,
                 child: ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -243,13 +243,13 @@ class _CartPrudacteState extends State<CartPrudacte> {
                   textAlign: TextAlign.end,
                   style: TextStyle(
                       fontSize: 20,
-                      color: Colors.black,
+                      color: Color.fromRGBO(238, 114, 100, 1),
                       fontWeight: FontWeight.bold),
                 ),
               ),
               Text(
                 '\$ ${widget.pries}',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
+                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20,color: Color.fromRGBO(238, 114, 100, 0.75)),
               ),
               Row(
                 children: [
@@ -259,7 +259,7 @@ class _CartPrudacteState extends State<CartPrudacte> {
                     decoration: BoxDecoration(
                       boxShadow: [
                         BoxShadow(
-                            color: Colors.black54,
+                            color:Color.fromRGBO(238, 114, 100, 1),
                             spreadRadius: .1,
                             blurRadius: 5)
                       ],
@@ -273,14 +273,14 @@ class _CartPrudacteState extends State<CartPrudacte> {
                             onPressed: () {
                               _decrement();
                             },
-                            icon: Icon(Icons.remove),
+                            icon: Icon(Icons.remove,color: Color.fromRGBO(238, 114, 100, 1),),
                             iconSize: 15),
                         Text('$num', style: TextStyle(fontSize: 15)),
                         IconButton(
                             onPressed: () {
                               _increment();
                             },
-                            icon: Icon(Icons.add),
+                            icon: Icon(Icons.add,color: Color.fromRGBO(238, 114, 100, 1),),
                             iconSize: 15),
                       ],
                     ),
@@ -292,7 +292,7 @@ class _CartPrudacteState extends State<CartPrudacte> {
                       decoration: BoxDecoration(
                           boxShadow: [
                             BoxShadow(
-                                color: Colors.black54,
+                                color:Color.fromRGBO(238, 114, 100, 1),
                                 spreadRadius: .1,
                                 blurRadius: 5)
                           ],
@@ -302,7 +302,7 @@ class _CartPrudacteState extends State<CartPrudacte> {
                         onPressed:widget.deleteItem,
                         icon: Icon(
                           Icons.delete_outline_outlined,
-                          color: Colors.black54,
+                          color: Colors.red,
                         ),
                       )),
                 ],

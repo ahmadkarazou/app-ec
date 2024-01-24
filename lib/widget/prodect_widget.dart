@@ -69,8 +69,8 @@ class _PrudacteWidgetsState extends State<PrudacteWidgets> {
                   maxLines: 1,
                   style: TextStyle(
                       fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
+                      color: Color.fromRGBO(238, 114, 100, 1),
+                      fontWeight: FontWeight.w500),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -78,7 +78,7 @@ class _PrudacteWidgetsState extends State<PrudacteWidgets> {
                     Text(
                       '\$${widget.Pries}',
                       style: TextStyle(
-                          color: Colors.grey,
+                          color: Color.fromRGBO(238, 114, 100, 0.75),
                           fontWeight: FontWeight.bold,
                           fontSize: 15),
                     ),
@@ -87,15 +87,14 @@ class _PrudacteWidgetsState extends State<PrudacteWidgets> {
                         CircleAvatar(
                           radius: 15,
                           backgroundColor: (widget.isCart)
-                              ? Colors.blue.shade100
+                              ? Colors.red.shade100
                               : Colors.grey.shade100,
                           child: IconButton(
                             onPressed: widget.addCart,
                             icon: Icon(
                               Icons.add_shopping_cart,
                               size: 15,
-                              color:
-                              (widget.isCart) ? Colors.blue : Colors.grey,
+                              color: (widget.isCart) ? Colors.red : Colors.grey,
                             ),
                           ),
                         ),

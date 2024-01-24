@@ -54,7 +54,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 imageUrl: favoriteItems.image,
                 title: favoriteItems.title,
                 Pries: favoriteItems.price,
-                isCart: item[index].isCart,
+                isCart:favoriteItems.isCart,
                 addCart: () {
                   setState(() {
                     cartItem(item.indexOf(favoriteItems));
