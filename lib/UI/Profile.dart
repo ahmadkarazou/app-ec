@@ -6,6 +6,7 @@ import 'package:untitled4/UI/LogIn.dart';
 import 'package:untitled4/UI/rate_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../main.dart';
 import 'edit_profile.dart';
 
 class Profile extends StatefulWidget {
@@ -27,12 +28,14 @@ class _ProfileState extends State<Profile> {
   }
 
   Future GetData() async {
-    SharedPreferences shared = await SharedPreferences.getInstance();
-    String uId = shared.getString('uId')!;
+    String uId = sharedPref.getString('uId')!;
+    print(uId);
     FirebaseFirestore.instance.collection('User').doc(uId).get().then((value) {
       setState(() {
-        widget.email = value["Email"].toString();
-        widget.name = value["Name"].toString();
+        widget.email = value["Email"];
+        print("Email:: ${value["Email"]}");
+        widget.name = value["Name"];
+        print("Email:: ${value["Name"]}");
       });
     });
   }
@@ -58,26 +61,30 @@ class _ProfileState extends State<Profile> {
                     backgroundImage: AssetImage(
                         'assets/images/06361988-ab1d-48cb-bdc0-8fb7b6b25a04.jpg'),
                   ),
-                  //const SizedBox(width: 16.0),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.name,
-                        style: TextStyle(
-                          fontSize: 24.0,
-                          fontWeight: FontWeight.bold,
+                  const SizedBox(width: 10.0),
+                  SizedBox(
+                    width: wid*0.4,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.name,
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromRGBO(238, 114, 100, 1),
+                          ),
                         ),
-                      ),
-                      Text(
-                        widget.email,
-                        style: TextStyle(
-                          fontSize: 18.0,
-                          color: Colors.black,
+                        Text(
+                          widget.email,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color:Color.fromRGBO(238, 114, 100, 1),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   IconButton(
                     onPressed: () {
@@ -191,7 +198,7 @@ class ButtonNut extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-                fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                fontSize: 18, fontWeight: FontWeight.bold, color:Color.fromRGBO(238, 114, 100, 1)),
           ),
         ],
       ),

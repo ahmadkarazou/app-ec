@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:untitled4/UI/home.dart';
 
+import '../main.dart';
 import '../widget/button.dart';
 import 'LogIn.dart';
 
@@ -112,20 +113,28 @@ class _CreateState extends State<Create> {
                       email: email,
                       password: password,
                     );
-                   SharedPreferences shared=await  SharedPreferences.getInstance();
-                      shared.setString('uId', newUser.user!.uid);
-                      print('====================================${shared.getString('uId')}');
+                    sharedPref.setString('uId', newUser.user!.uid);
+                    sharedPref.setString('email', email);
+                    sharedPref.setString('name',name);
+                    print('====================================${sharedPref.getString('uId')}');
+                    print("=============${newUser}");
                     if (newUser != null) {
-                      FirebaseFirestore.instance
-                          .collection('User')
-                          .doc(newUser.user?.uid)
-                          .set({
-                        'Name': name,
-                        'Email':email,
-                        'Password':password,
-                        'gender':gender,
-                        'phoneNumber':phoneNumber,
-                      });
+                      try {
+                        await FirebaseFirestore.instance
+                            .collection('User')
+                            .doc(newUser.user?.uid)
+                            .set({
+                          'Name': name,
+                          'Email': email,
+                          'Password': password,
+                          'gender': gender,
+                          'phoneNumber': phoneNumber,
+                        });
+                        print('User data stored successfully in Firestore');
+                      } catch (e) {
+                        print('Error setting data in Firestore: $e');
+                      }
+
                     }
                     Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(

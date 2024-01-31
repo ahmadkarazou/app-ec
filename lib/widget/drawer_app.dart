@@ -5,6 +5,7 @@ import 'package:untitled4/UI/Profile.dart';
 import 'package:untitled4/UI/home.dart';
 
 import '../UI/setting_screen.dart';
+import '../main.dart';
 
 class DrawerApp extends StatefulWidget {
   DrawerApp({super.key});
@@ -24,8 +25,8 @@ class _DrawerAppState extends State<DrawerApp> {
   }
 
   GetData() async {
-    SharedPreferences shared = await SharedPreferences.getInstance();
-    String uId = shared.getString('uId')!;
+
+    String uId = sharedPref.getString('uId')!;
     FirebaseFirestore.instance.collection('User').doc(uId).get().then((value) {
       setState(() {
         email = value["Email"].toString();
@@ -39,7 +40,7 @@ class _DrawerAppState extends State<DrawerApp> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      width: 270,
       height: 800,
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(30)),
@@ -50,7 +51,7 @@ class _DrawerAppState extends State<DrawerApp> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(width: 10),
+              SizedBox(width: 5),
               const CircleAvatar(
                 radius: 40.0,
                 backgroundImage: AssetImage(
@@ -65,14 +66,7 @@ class _DrawerAppState extends State<DrawerApp> {
                     style: TextStyle(
                       fontSize: 20.0,
                       fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    email,
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      color: Colors.black,
+                      color: Color.fromRGBO(238, 114, 100, 1),
                     ),
                   ),
                 ],

@@ -4,6 +4,7 @@ import 'package:untitled4/UI/Create.dart';
 import 'package:untitled4/UI/Forgot.dart';
 import 'package:untitled4/UI/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../main.dart';
 import '../widget/button.dart';
 
 class LogIn extends StatefulWidget {
@@ -92,9 +93,7 @@ class _LogInState extends State<LogIn> {
                   try {
                     final user = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
-                    SharedPreferences shared = await SharedPreferences
-                        .getInstance();
-                    shared.setString('uId', user.user!.uid);
+                    sharedPref.setString('uId', user.user!.uid);
                     print(user.user!.uid);
                     if (user != null) {
                       Navigator.pushAndRemoveUntil(context,

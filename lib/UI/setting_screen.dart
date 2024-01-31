@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:untitled4/UI/language_screen.dart';
+
+import '../local/locale_controller.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -9,10 +12,13 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  var label= 'Language';
   @override
   Widget build(BuildContext context) {
+    LocaleController controller = Get.find();
     double hei = MediaQuery.of(context).size.height;
     double wid = MediaQuery.of(context).size.width;
+    var label= 'Language';
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
@@ -31,17 +37,60 @@ class _SettingScreenState extends State<SettingScreen> {
         child: Column(
           children: [
             SizedBox(height: hei * 0.02),
-            ButtonWidget(
-              wid: wid,
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => LanguageScreen(),
-                ));
+            DropdownButton(
+              style: TextStyle(color: Colors.black,fontSize: 24),
+              autofocus: true,
+              hint:  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                     maxRadius: 30,
+                      backgroundColor: Color.fromRGBO(238, 114, 100, .25),
+                      child: Icon(
+                        Icons.language,
+                        size: 30,
+                        color: Color.fromRGBO(238, 114, 100, 1),
+                      ),
+                    ),
+                   SizedBox(width: wid * 0.05),
+                    Text(
+                      'Language',
+                      style: TextStyle(
+                          color: Color.fromRGBO(238, 114, 100, 1),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(width: wid * 0.15),
+                  ],
+                ),
+              icon: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Color.fromRGBO(238, 114, 100, .25),
+                ),
+                padding: EdgeInsets.all(5),
+                child: Icon(
+                  Icons.arrow_forward_ios_sharp,
+                  color: Color.fromRGBO(238, 114, 100, 1),
+                ),
+              ),
+              items: ['Arabic', 'English']
+                  .map((e) => DropdownMenuItem(
+                child: Text("$e"),
+                value: e,
+              ))
+                  .toList(),
+              onChanged: (val) {
+                if (val == 'Arabic') {
+                  controller.changeLang("ar");
+                }
+                if (val == 'English') {
+                  controller.changeLang("en");
+                }
               },
-              title: 'Language',
-              icon: Icons.language,
-              backColor: Color.fromRGBO(238, 114, 100, .25),
-              iconColor: Color.fromRGBO(238, 114, 100, 1),
+
+              value: null,
+
             ),
             SizedBox(height: hei * 0.02),
             Divider(height: 2, color: Colors.black12),
@@ -112,12 +161,13 @@ class ButtonWidget extends StatelessWidget {
         children: [
           Row(
             children: [
+              SizedBox(width: wid * 0.02),
               CircleAvatar(
-                minRadius: 30,
+                minRadius: 25,
                 backgroundColor: backColor,
                 child: Icon(
                   icon,
-                  size: 40,
+                  size: 30,
                   color: iconColor,
                 ),
               ),
@@ -132,12 +182,14 @@ class ButtonWidget extends StatelessWidget {
             ],
           ),
           Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10),color: Color.fromRGBO(238, 114, 100, .25),),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Color.fromRGBO(238, 114, 100, .25),
+            ),
             padding: EdgeInsets.all(5),
-
             child: Icon(
               Icons.arrow_forward_ios_sharp,
-              color:Color.fromRGBO(238, 114, 100, 1),
+              color: Color.fromRGBO(238, 114, 100, 1),
             ),
           )
         ],
